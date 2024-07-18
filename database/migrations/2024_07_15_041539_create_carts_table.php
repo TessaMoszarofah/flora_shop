@@ -20,6 +20,17 @@ return new class extends Migration
 
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_produk')->references('id')->on('produks')->onDelete('cascade');
+
+        // $table->id();
+        // $table->unsignedBigInteger('id_user'); // Kolom untuk menyimpan ID pengguna
+        // $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+        // $table->unsignedBigInteger('id_produk'); // Kolom untuk menyimpan ID produk
+        // $table->foreign('id_produk')->references('id')->on('produks')->onDelete('cascade');
+        // $table->string('name');
+        // $table->integer('quantity'); // Kolom untuk menyimpan jumlah produk
+        // $table->integer('price'); 
+        // $table->string('image');
+        // $table->timestamps();
         });
     }
 

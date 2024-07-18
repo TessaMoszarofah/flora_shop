@@ -39,7 +39,7 @@ Route::get('/', [App\Http\Controllers\FrontController::class, 'index'])->name('f
 
 
 Route::get('tes', function () {
-    return view('frontEnd.index');
+    return view('frontEnd.detail');
 });
 
 
@@ -53,11 +53,12 @@ Route::get('wishlist',[FrontController::class, 'wishlist']);
 Route::get('about',[FrontController::class, 'about']);
 
 Route::get('cart',[CartController::class, 'index'])->name('cart.index');
-Route::post('cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+Route::post('cart/', [CartController::class, 'store'])->name('cart.store');
 Route::post('cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 Route::post('cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
+Route::get('/shop/detail/{id}',[FrontController::class, 'detail'])->name('shop.detail');
 
 // tugas 25 juni 2024
 // Route Admin(Backend)
@@ -94,10 +95,10 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 });
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/checkout', [OrderController::class, 'index'])->name('checkout.index');
-    Route::post('/checkout', [OrderController::class, 'process'])->name('checkout.process');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/checkout', [OrderController::class, 'index'])->name('checkout.index');
+//     Route::post('/checkout', [OrderController::class, 'process'])->name('checkout.process');
+// });
 
 
 // PROJECT

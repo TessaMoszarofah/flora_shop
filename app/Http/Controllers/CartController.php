@@ -3,159 +3,101 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
-// use App\Models\Cart;
-use Darryldecode\Cart\Facades\CartFacade as Cart;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
+// use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // $user = auth()->user(); // Mendapatkan pengguna yang sedang login
-        // $carts = Cart::where('id_user', $user->id)->get(); // Mengambil semua item dalam keranjang pengguna
-
-        $cartItems = Cart::getContent();
-        // dd( $cartItems);
+        $userId = Auth::id();
+        $cartItems = Cart::with('produk')->where('id_user', $userId)->get();
         return view('frontend.cart', compact('cartItems'));
     }
-    public function add(Request $request, $id)
-    {
-        $product = Produk::find($id);
-
-        if ($product) {
-            // Cart::add($product->id, $product->nama_produk, 1, $product->harga);
-            Cart::add([
-                'id' => $product->id,
-                'name' => $product->nama_produk, // Sesuaikan dengan atribut nama produk yang benar
-                'price' => $product->harga, // Sesuaikan dengan atribut harga yang benar
-                'quantity' => 1,
-                'attributes' => [
-                    'gambar' => $product->gambar, // Simpan path gambar produk di sini
-                ],
-            ]);
-            return redirect()->route('cart.index')->with('success', 'Product added to cart successfully!');
-        }
-
-        return redirect()->route('home')->with('error', 'Product not found.');
-    }
-    public function update(Request $request, $itemId)
-    {
-        $quantity = $request->input('quantity');
-
-        Cart::update($itemId, [
-            'quantity' => [
-                'relative' => false,
-                'value' => $quantity,
-            ],
-        ]);
-
-        return redirect()->route('cart.index')->with('success', 'Cart updated successfully.');
-    }
-    public function remove($id)
-    {
-        Cart::remove($id);
-
-        return redirect()->back()->with('success', 'Product removed from cart!');
-    }
-    public function clear()
-    {
-        Cart::clear();
-
-        return redirect()->back()->with('success', 'Cart cleared!');
-    }
-
-    // /**
-    //  * Show the form for creating a new resource.
-    //  */
-    // public function create()
-    // {
-    //     //
-    // }
-
-    /**
+    /** 
      * Store a newly created resource in storage.
      */
-    // public function store(Request $request)
-    // {
-    //     $user = auth()->user(); // Mendapatkan pengguna yang sedang login
+    public function store(Request $request)
+    {
+        
+        $userId = Auth::id();
+        $request->validate([
+            'id_produk' => 'required|exists:produks,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+        
+        $cartItem = Cart::where('id_user', $userId)
+        ->where('id_produk', $request->id_produk)
+        ->first();
+        
+        if ($cartItem) {
+            $cartItem->quantity += $request->quantity;
+            $cartItem->save();
+        } else {
+            Cart::create([
+                'id_user' => $userId,
+                'id_produk' => $request->id_produk,
+                'quantity' => $request->quantity,
+            ]);
+        }
 
-    //     // Cek apakah produk sudah ada di keranjang pengguna
-    //     $existingCart = Cart::where('id_user', $user->id)
-    //         ->where('id_produk', $request->id_produk)
-    //         ->first();
+        // dd($userId, $request->id_produk, $request->quantity);
 
-    //     if ($existingCart) {
-    //         // Jika produk sudah ada, tambahkan quantity
-    //         $existingCart->quantity += $request->quantity;
-    //         $existingCart->save();
-    //     } else {
-    //         // Jika produk belum ada, buat entri baru di keranjang
-    //         $cart = new Cart();
-    //         $cart->id_user = $user->id;
-    //         $cart->id_produk = $request->id_produk;
-    //         $cart->quantity = $request->quantity;
-    //         $cart->save();
-    //     }
+        return redirect()->route('cart.index')->with('success', 'Produk berhasil ditambahkan ke keranjang.');
+    }
 
-    //     return redirect()->route('carts.index')->with('success', 'Produk berhasil ditambahkan ke keranjang.');
-    // }
+    /**
+     * Display the specified resource.
+     */
 
-    // /**
-    //  * Display the specified resource.
-    //  */
-    // public function show(Cart $cart)
-    // {
-    //     //
-    // }
+    /**
+     * Show the form for editing the specified resource.
+     */
 
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  */
-    // public function edit(Cart $cart)
-    // {
-    //     //
-    // }
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
+        $userId = Auth::id();
+        $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
 
-    // /**
-    //  * Update the specified resource in storage.
-    //  */
-    // public function update(Request $request, Cart $cart)
-    // {
-    //     $cart = Cart::findOrFail($id);
-    //     $cart->quantity = $request->quantity;
-    //     $cart->save();
+        $cartItem = Cart::where('id_user', $userId)->where('id', $id)->first();
 
-    //     return redirect()->route('carts.index')->with('success', 'Kuantitas produk dalam keranjang berhasil diupdate.');
-    // }
+        if ($cartItem) {
+            $cartItem->quantity = $request->quantity;
+            $cartItem->save();
 
-    // public function updateQuantity(Request $request)
-    // {
-    //     $cart = Cart::find($request->id);
-    //     $cart->quantity = $request->quantity;
-    //     $cart->save();
+            return redirect()->route('cart.index')->with('success', 'Jumlah produk berhasil diupdate.');
+        }
 
-    //     return response()->json(['success' => true, 'message' => 'Quantity updated successfully']);
-    // }
+        return redirect()->route('cart.index')->with('error', 'Produk tidak ditemukan dalam keranjang.');
+    }
 
-    // /**
-    //  * Remove the specified resource from storage.
-    //  */
-    // public function destroy(Cart $cart)
-    // {
-    //     $cart = Cart::findOrFail($id);
-    //     $cart->delete();
 
-    //     return redirect()->route('carts.index')->with('success', 'Produk berhasil dihapus dari keranjang.');
-    // }
+    public function remove(Request $request ,$id)
+    {
+        $userId = Auth::id();
+        $cartItem = Cart::where('id_user', $userId)->where('id', $id)->first();
 
-    // public function removeItem(Request $request)
-    // {
-    //     $cart = Cart::find($request->id);
-    //     $cart->delete();
+        if ($cartItem) {
+            $cartItem->delete();
 
-    //     return response()->json(['success' => true, 'message' => 'Item removed successfully']);
-    // }
+            return redirect()->route('cart.index')->with('success', 'Produk berhasil dihapus dari keranjang.');
+        }
+
+        return redirect()->route('cart.index')->with('error', 'Produk tidak ditemukan dalam keranjang.');
+    }
 }

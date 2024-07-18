@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="{{asset('frontAsset/css/flaticon.css')}}">
     <link rel="stylesheet" href="{{asset('frontAsset/css/icomoon.css')}}">
     <link rel="stylesheet" href="{{asset('frontAsset/css/style.css')}}">
-    <link rel="stylesheet" href="{{asset('frontAsser/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('frontAsset/css/style.css')}}">
 </head>
 <body class="goto-here">
 

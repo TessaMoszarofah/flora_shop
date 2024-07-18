@@ -19,24 +19,26 @@
             <h3><a href="#">{{ $item->nama_produk }}</a></h3>
             <div class="d-flex">
                 <div class="pricing">
-                    <p class="price"><span class="price-sale">{{ $item->harga }}</span></p>
+                    <p class="price"><span class="price-sale">{{ number_format($item->harga) }}</span></p>
                 </div>
             </div>
             <div class="bottom-area d-flex px-3">
                 <div class="m-auto d-flex">
-                    <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                    <a href="{{route('shop.detail', $item->id)}}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
                         <span><i class="ion-ios-menu"></i></span>
                     </a>
-                    <form action="{{ route('cart.add', $item->id) }}" method="POST" id="myForm-{{$item->id}}" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                    <form action="{{ route('cart.store')}}" method="POST" id="myForm-{{$item->id}}" class="buy-now d-flex justify-content-center align-items-center mx-1">
                         @csrf
+                        <input type="hidden" name="id_produk" value="{{$item->id}}">
+                        <input type="hidden" name="quantity" value="1">
                         <a href="javascript:void(0);"  data-form-id="myForm-{{ $item->id }}"class="buy-now d-flex justify-content-center align-items-center mx-1" onclick="submitForm()">
                             <span><i class="ion-ios-cart"></i></span>
                         </a>
                         
                     </form>
-                    <a href="#" class="heart d-flex justify-content-center align-items-center " onclick="submitForm()">
+                    {{-- <a href="#" class="heart d-flex justify-content-center align-items-center " onclick="submitForm()">
                         <span><i class="ion-ios-heart"></i></span>
-                    </a>
+                    </a> --}}
                 </div>
             </div>
         </div>

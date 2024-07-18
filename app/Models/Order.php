@@ -5,6 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Produk;
+use App\Models\User;
+use App\Models\Transaksi;
+
 class Order extends Model
 {
     use HasFactory;
@@ -27,5 +31,9 @@ class Order extends Model
     public function User()
     {
         return $this->belongsTo(App\Models\User::class, 'user_id');
+    }
+    public function Transaksi()
+    {
+        return $this->hasMany(App\Models\Transaksi::class, 'user_id');
     }
 }
