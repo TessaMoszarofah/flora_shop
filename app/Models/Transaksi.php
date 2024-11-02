@@ -10,9 +10,9 @@ use App\Models\Order;
 class Transaksi extends Model
 {
     use HasFactory;
-    protected $fillable = ['id', 'order_id', 'total', 'status'];
+    protected $fillable = ['id', 'order_id', 'produk_id', 'quantity', 'price'];
 
-    protected $visible = ['id', 'order_id', 'total', 'status'];
+    protected $visible = ['id', 'order_id', 'produk_id', 'quantity', 'price'];
 
     protected $timetamps = true;
 

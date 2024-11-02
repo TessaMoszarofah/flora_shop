@@ -9,8 +9,8 @@
                     </div>
                 @endif
                 <div class="card border-secondary">
-                    <div class="card-header">Data Produk
-                        <a href="{{ route('produk.create') }}" class="btn btn-sm btn-primary" style="float: right">Tambah</a>
+                    <div class="card-header" id="data-produk">Data Produk
+                        <a href="{{ route('produk.create') }}" class="btn btn-sm btn-primary" id="add-products" style="float: right">Tambah</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">

@@ -32,10 +32,10 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama_produk' => 'required',
+            'nama_produk' => 'required|string|max:255|regex:/^[a-zA-Z\s]*$/',
             'gambar' => 'required|max:4000|mimes:png,jpg,jpeg',
-            'harga' => 'required',
-            'stok' => 'required',
+            'harga' => 'required|numeric',
+            'stok' => 'required|numeric',
             'deskripsi' => 'required',
             'kategori_id' => 'required'
         ]);
@@ -84,9 +84,10 @@ class ProdukController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'nama_produk' => 'required',
-            'harga' => 'required',
-            'stok' => 'required',
+            'nama_produk' => 'required|string|max:255|regex:/^[a-zA-Z\s]*$/',
+            'gambar' => 'required|max:4000|mimes:png,jpg,jpeg',
+            'harga' => 'required|numeric',
+            'stok' => 'required|numeric',
             'deskripsi' => 'required',
             'kategori_id' => 'required'
         ]);

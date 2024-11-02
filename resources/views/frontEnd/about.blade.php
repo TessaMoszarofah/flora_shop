@@ -38,11 +38,11 @@
     {{-- akhir navbar --}}
 		
     {{-- awal content --}}
-    <div class="hero-wrap hero-bread" style="background-image: url({{asset('images/background.jpg')}});">
+    <div class="hero-wrap hero-bread" style="background-image: url({{asset('images/background.jpg')}});" id="content-about1">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>About us</span></p>
+          	<p class="breadcrumbs"><span class="mr-2"><a href="{{url('/')}}">Home</a></span> <span>About us</span></p>
             <h1 class="mb-0 bread">About us</h1>
           </div>
         </div>
@@ -53,7 +53,7 @@
     <section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url({{asset('images/bgtanaman.jpg')}});">
+					<div class="col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url({{asset('images/bgtanaman.jpg')}});" id="video-flora">
 						<a href="{{url('https://www.youtube.com/watch?v=hVrv3lOy3vA')}}" class="icon popup-vimeo d-flex justify-content-center align-items-center">
 							<span class="icon-play"></span>
 						</a>
@@ -63,14 +63,14 @@
 					<div class="col-md-7 py-5 wrap-about pb-md-5 ftco-animate">
 	          <div class="heading-section-bold mb-4 mt-md-5">
 	          	<div class="ml-md-0">
-		            <h2 class="mb-4">Welcome to Flora Shop website</h2>
+		            <h2 class="mb-4" id="title-about">Welcome to Flora Shop website</h2>
 	            </div>
 	          </div>
 	          <div class="pb-md-5">
 	          	<p>Selamat datang di Flora Shop, destinasi utama Anda untuk keindahan bunga dan tanaman yang mempesona. Kami adalah toko bunga online yang berdedikasi untuk menghadirkan
                      keajaiban alam ke dalam hidup Anda melalui berbagai rangkaian bunga segar dan tanaman berkualitas tinggi. Dengan pengalaman bertahun-tahun di industri florist, kami bangga menyediakan layanan terbaik dan produk unggulan untuk semua kebutuhan bunga Anda.</p>
 							<p>misi kami adalah untuk membantu Anda mengekspresikan perasaan, merayakan momen istimewa, dan menciptakan kenangan indah dengan bunga. Kami berkomitmen untuk menyediakan rangkaian bunga yang elegan, indah, dan dibuat dengan penuh cinta oleh tim florist profesional kami.</p>
-							<p><a href="{{url('/shop')}}" class="btn btn-primary">Shop now</a></p>
+							<p><a href="{{url('/shop')}}" class="btn btn-primary" id="shopping">Shop now</a></p>
 						</div>
 					</div>
 				</div>
@@ -96,7 +96,7 @@
       </div>
     </section>
 		
-		<section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url({{asset('images/bg2.jpg')}});">
+		<section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url({{asset('images/bg2.jpg')}});" id="content-about2">
     	<div class="container">
     		<div class="row justify-content-center py-5">
     			<div class="col-md-10">
@@ -143,7 +143,7 @@
    {{-- awal testimony --}}
 	 <section class="ftco-section testimony-section">
         <div class="container">
-            <div class="row justify-content-center mb-5 pb-3">
+            <div class="row justify-content-center mb-5 pb-3" id="testimony-customer">
                 <div class="col-md-7 heading-section ftco-animate text-center">
                     <span class="subheading">Testimony</span>
                     <h2 class="mb-4">Our satisfied customer says</h2>

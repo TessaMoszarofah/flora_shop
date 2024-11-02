@@ -30,10 +30,11 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|unique:users',
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z\s]*$/',
+            'email' => 'required|string|email|max:255|unique:users|regex:/^[a-zA-Z0-9._%+-]+@gmail\.com$/',
             'password' => 'required|min:8',
         ]);
+
 
         $user = new User();
         $user->name = $request->name;
@@ -68,8 +69,8 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required',
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z\s]*$/',
+            'email' => 'required|string|email|max:255|unique:users|regex:/^[a-zA-Z0-9._%+-]+@gmail\.com$/',
             'password' => 'required|min:8',
         ]);
 

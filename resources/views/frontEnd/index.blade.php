@@ -52,7 +52,7 @@
     {{-- awal content --}}
     <section id="home-section" class="hero">
         <div class="home-slider owl-carousel">
-            <div class="slider-item" style="background-image: url({{asset('images/bg.webp')}});">
+            <div class="slider-item" style="background-image: url({{asset('images/bg.webp')}});" id="content-1">
                 <div class="overlay"></div>
                 <div class="container">
                     <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
@@ -66,7 +66,7 @@
                 </div>
             </div>
 
-            <div class="slider-item" style="background-image: url({{asset('images/background.jpg')}});">
+            <div class="slider-item" style="background-image: url({{asset('images/background.jpg')}});" id="content-2">
                 <div class="overlay"></div>
                 <div class="container">
                     <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
@@ -85,7 +85,7 @@
     <section class="ftco-section">
         <div class="container">
             <div class="row no-gutters ftco-services">
-                <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+                <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate" id="icon-1">
                     <div class="media block-6 services mb-md-0 mb-4">
                         <div class="icon bg-color-1 active d-flex justify-content-center align-items-center mb-2">
                             <span class="flaticon-shipped"></span>
@@ -96,7 +96,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+                <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate" id="icon-2">
                     <div class="media block-6 services mb-md-0 mb-4">
                         <div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
                             <span class="flaticon-diet"></span>
@@ -107,7 +107,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+                <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate" id="icon-3">
                     <div class="media block-6 services mb-md-0 mb-4">
                         <div class="icon bg-color-3 d-flex justify-content-center align-items-center mb-2">
                             <span class="flaticon-award"></span>
@@ -118,7 +118,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+                <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate" id="icon-4">
                     <div class="media block-6 services mb-md-0 mb-4">
                         <div class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
                             <span class="flaticon-customer-service"></span>
@@ -138,8 +138,8 @@
         <div class="container">
             <div class="row justify-content-center mb-3 pb-3">
                 <div class="col-md-12 heading-section text-center ftco-animate">
-                    <span class="subheading">Featured Products</span>
-                    <h2 class="mb-4">Our Products</h2>
+                    <span class="subheading" id="featured-products">Featured Products</span>
+                    <h2 class="mb-4" id="our-products">Our Products</h2>
                     <p>various types of plants</p>
                 </div>
             </div>
@@ -157,7 +157,7 @@
     {{-- awal testimony --}}
     <section class="ftco-section testimony-section">
         <div class="container">
-            <div class="row justify-content-center mb-5 pb-3">
+            <div class="row justify-content-center mb-5 pb-3" id="testimony-customer">
                 <div class="col-md-7 heading-section ftco-animate text-center">
                     <span class="subheading">Testimony</span>
                     <h2 class="mb-4">Our satisfied customer says</h2>

@@ -18,13 +18,13 @@
     </div>
     <div class="ms-auto">
         <div class="btn-group">
-            <a href="{{route('user.create')}}" class="btn btn-sm btn-primary">Add Data</a>
+            <a href="{{route('user.create')}}" class="btn btn-sm btn-primary" id="add-user">Add Data</a>
         </div>
     </div>
 </div>
 <!--end breadcrumb-->
 
-<h6 class="mb-0 text-uppercase">Users</h6>
+<h6 class="mb-0 text-uppercase" id="user">Data Users</h6>
 <hr>
 <div class="card">
     <div class="card-body">

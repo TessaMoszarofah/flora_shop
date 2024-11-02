@@ -1,7 +1,7 @@
 <aside class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header">
         <div class="logo-icon">
-            <img src="../assets/images/logoflora1.png" class="logo-img" alt="">
+            <img src="../assets/images/logoflora1.png" class="logo-img" alt="" id="logo-florashop">
         </div>
         <div class="logo-name flex-grow-1">
             <h5 class="mb-0">Flora Shop</h5>
@@ -14,14 +14,14 @@
         <!--navigation-->
         <ul class="metismenu" id="sidenav">
             <li>
-                <a href="{{url('/admin')}}">
+                <a href="{{url('/admin')}}" id="dashboard">
                     <div class="parent-icon"><i class="material-icons-outlined">home</i>
                     </div>
                     <div class="menu-title">Dashboard</div>
                 </a>
             </li>
             <li>
-                <a href="{{route('user.index')}}">
+                <a href="{{route('user.index')}}" id="user-management">
                     <div class="parent-icon"><i class="material-icons-outlined">person</i>
                     </div>
                     <div class="menu-title">Users Management</div>
@@ -29,16 +29,16 @@
             </li>
             <li class="menu-label">Menu</li>
             <li>
-                <a href="javascript:;" class="has-arrow">
+                <a href="javascript:;" class="has-arrow" id="ecommerce-menu">
                     <div class="parent-icon"><i class="material-icons-outlined">shopping_bag</i>
                     </div>
                     <div class="menu-title">eCommerce</div>
                 </a>
                 <ul>
-                    <li><a href="{{route('kategori.index')}}"><i
+                    <li><a href="{{route('kategori.index')}}" id="ecommerce-category"><i
                                 class="material-icons-outlined">arrow_right</i>Category</a>
                     </li>
-                    <li><a href="{{route('produk.index')}}"><i
+                    <li><a href="{{route('produk.index')}}" id="ecommerce-products"><i
                                 class="material-icons-outlined">arrow_right</i>Products</a>
                     </li>
                     {{-- <li><a href="ecommerce-customers.html"><i

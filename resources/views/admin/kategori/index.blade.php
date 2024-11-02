@@ -10,8 +10,8 @@
                     </div>
                 @endif
                 <div class="card">
-                    <div class="card-header">Data Kategori
-                        <a href="{{ route('kategori.create') }}" class="btn btn-sm btn-primary" style="float: right">Tambah</a>
+                    <div class="card-header" id="data-kategori">Data Kategori
+                        <a href="{{ route('kategori.create') }}" class="btn btn-sm btn-primary" id="add-category" style="float: right">Tambah</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">

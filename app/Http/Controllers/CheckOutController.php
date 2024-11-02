@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Transaksi;
+use App\Models\Produk;
 use Illuminate\Support\Facades\Auth;
 
 class CheckOutController extends Controller
@@ -19,8 +20,13 @@ class CheckOutController extends Controller
      */
     public function index()
     {
+        $total = 0;
         $carts = Cart::with('produk')->where('id_user', Auth::id())->get();
-        return view('user.checkout', compact('carts'));
+        foreach ($carts as $cart) {
+            $subTotal = $cart->quantity * $cart->produk->harga;
+            $total += $subTotal;
+        }
+        return view('frontEnd.checkout', compact('carts','total'));
     }
 
     /**
@@ -37,8 +43,12 @@ class CheckOutController extends Controller
     public function order(Request $request)
     {
         $request->validate([
-            'address' => 'required|string|max:255',
-            'payment_method' => 'required|string|max:50',
+            'alamat' => 'required|string|max:255',
+            'kota' => 'required|string|max:255',
+            'kode_pos' => 'required|string|max:255',
+            'phone' => 'required|string|max:255',
+            'email' => 'required|string|max:255',
+            // 'payment_method' => 'required|string|max:50',
         ]);
 
         $total = 0;
@@ -47,25 +57,32 @@ class CheckOutController extends Controller
         foreach ($carts as $cart) {
             $total += $cart->quantity * $cart->produk->harga;
         }
-
+        $userId= Auth::id();
         $order = Order::create([
-            'id_user' => Auth::id(),
-            'address' => $request->address,
-            'payment_method' => $request->payment_method,
+            'user_id' => $userId,
+            'alamat' => $request->alamat,
+            'kota' => $request->kota,
+            'kode_pos' => $request->kode_pos,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            // 'payment_method' => $request->payment_method,
             'total' => $total
         ]);
 
         foreach ($carts as $cart) {
             Transaksi::create([
-                'id_order' => $order->id,
-                'id_produk' => $cart->id_produk,
+                'order_id' => $order->id,
+                'produk_id' => $cart->id_produk,
                 'quantity' => $cart->quantity,
                 'price' => $cart->produk->harga,
             ]);
+            $produk = Produk::findOrFail($cart->id_produk);
+            $produk->stok = $cart->produk->stok - $cart->quantity;
+            $produk->save();
             $cart->delete();
         }
 
-        return redirect()->route('orders.index')->with('success', 'Order berhasil dibuat.');
+        return redirect()->route('frontEnd.index')->with('success', 'Order berhasil dibuat.');
     }
 
     /**

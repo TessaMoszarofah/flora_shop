@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('order_id');
-            $table->integer('total');
-            $table->enum('status', ['pending', 'processed', 'shipped', 'delivered', 'canceled']);
+            $table->unsignedBigInteger('produk_id');
+            $table->integer('quantity');
+            $table->integer('price');
             $table->timestamps();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('produk_id')->references('id')->on('produks')->onDelete('cascade');
         });
     }
 

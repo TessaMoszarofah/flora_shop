@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -24,11 +24,14 @@ class HomeController extends Controller
      */
     public function index()
     { 
+         // Ambil data pengguna yang sedang login
         $user = Auth::user();
-        if ($user->isAdmin ==1) {
-            return view('admin.index');
+
+        // Cek apakah pengguna adalah admin
+        if ($user->isAdmin == 1) {
+            return view('admin.index'); // Arahkan ke halaman admin.index untuk admin
          } else {
-                return view('index');
+                return view('index'); // Arahkan ke halaman utama untuk pengguna biasa
             }
         }
 }

@@ -30,7 +30,7 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama_kategori' => 'required|max:255',
+            'nama_kategori' => 'required|string|max:255|regex:/^[a-zA-Z\s]*$/',
             'deskripsi' => 'required',
         ]);
 
@@ -67,7 +67,7 @@ class KategoriController extends Controller
     public function update($id)
     {
         $validated = $request->validate([
-            'nama_kategori' => 'required|max:255',
+            'nama_kategori' => 'required|string|max:255|regex:/^[a-zA-Z\s]*$/',
             'deskripsi' => 'required',
         ]);
 

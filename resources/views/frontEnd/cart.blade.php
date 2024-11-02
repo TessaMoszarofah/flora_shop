@@ -49,18 +49,18 @@
     @include('layouts.frontend.navbar')
     {{-- akhir navbar --}}
 
-    <div class="hero-wrap hero-bread" style="background-image: url({{asset('images/background.jpg')}});">
+    <div class="hero-wrap hero-bread" style="background-image: url({{asset('images/background.jpg')}});" id="content-cart">
         <div class="container">
             <div class="row no-gutters slider-text align-items-center justify-content-center">
                 <div class="col-md-9 ftco-animate text-center">
-                    <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Cart</span></p>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="{{url('/')}}">Home</a></span> <span>Cart</span></p>
                     <h1 class="mb-0 bread">My Cart</h1>
                 </div>
             </div>
         </div>
     </div>
 
-    <section class="ftco-section ftco-cart">
+    <section class="ftco-section ftco-cart" id="data-Cart">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 ftco-animate">

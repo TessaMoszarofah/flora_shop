@@ -54,7 +54,7 @@
                         <ul>
                             <li><span class="icon icon-map-marker"></span><span class="text">2204 Jl Indah, Bandung, Jawa Barat, Indonesia</span></li>
                             <li><a href="#"><span class="icon icon-phone"></span><span class="text">+62 123 4567 891</span></a></li>
-                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">tessamoszarofah@gmail.com</span></a></li>
+                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">tssamoszarofah@gmail.com</span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                     Copyright &copy;<script>
                         document.write(new Date().getFullYear());
 
-                    </script> All rights reserved | tessamoszarofah@gmail.com <i class="icon-heart color-danger" aria-hidden="true"></i>
+                    </script> All rights reserved | tssamoszarofah@gmail.com <i class="icon-heart color-danger" aria-hidden="true"></i>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
             </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Flora Shop</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -48,12 +48,12 @@
     {{-- akhir navbar --}}
 
 
-    <div class="hero-wrap hero-bread" style="background-image: url('{{asset('frontAsset/images/bg_1.jpg')}}');">
+    <div class="hero-wrap hero-bread" style="background-image: url({{asset('images/background.jpg')}});" id="content-detail">
         <div class="container">
             <div class="row no-gutters slider-text align-items-center justify-content-center">
                 <div class="col-md-9 ftco-animate text-center">
-                    <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span class="mr-2"><a href="index.html">Product</a></span> <span>Product Single</span></p>
-                    <h1 class="mb-0 bread">Product Single</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="{{url('/')}}">Home</a></span> <span>Detail Product</span></p>
+                    <h1 class="mb-0 bread">Detail Product</h1>
                 </div>
             </div>
         </div>

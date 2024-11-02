@@ -15,12 +15,17 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('produk_id');
-            $table->integer('jumlah');
-            $table->date('tanggal');
-            $table->enum('status', ['pending', 'processed', 'shipped', 'delivered', 'canceled']);
-            $table->timestamps();
+            
+            $table->text('alamat');
+            $table->string('kota');
+            $table->string('kode_pos');
+            $table->string('phone');
+            $table->string('email');
+            $table->string('metode_pembayaran')->nullable();
+            
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('produk_id')->references('id')->on('produks')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
