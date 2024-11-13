@@ -41,13 +41,13 @@ Route::get('tes', function () {
 });
 
 // Route::get('/', [FrontController::class, 'index'])->name('frontEnd.index');
-// Route::get('contact', [FrontController::class, 'contact']);
-// Route::get('shop', [FrontController::class, 'shop']);
-// Route::get('/shop/kategori/{id}', [FrontController::class, 'kategori'])->name('shop.kategori');
-// Route::get('/kontak', [FrontController::class, 'kontak'])->name('kontak');
-// Route::post('/message', [FrontController::class, 'sendMessage'])->name('sendMessage');
+Route::get('contact', [FrontController::class, 'contact']);
+Route::get('shop', [FrontController::class, 'shop']);
+Route::get('/shop/kategori/{id}', [FrontController::class, 'kategori'])->name('shop.kategori');
+Route::get('/kontak', [FrontController::class, 'kontak'])->name('kontak');
 // Route::get('wishlist', [FrontController::class, 'wishlist']);
-// Route::get('about', [FrontController::class, 'about']);
+Route::get('about', [FrontController::class, 'about']);
+Route::post('/send-contact', [FrontController::class, 'sendContact'])->name('send.contact');
 
 // Route::get('cart', [CartController::class, 'index'])->name('cart.index');
 // Route::post('cart/', [CartController::class, 'store'])->name('cart.store');
@@ -55,7 +55,7 @@ Route::get('tes', function () {
 // Route::post('cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 // Route::post('cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
-// Route::get('/shop/detail/{id}', [FrontController::class, 'detail'])->name('shop.detail');
+Route::get('/shop/detail/{id}', [FrontController::class, 'detail'])->name('shop.detail');
 
 // Route::get('checkout', [CheckOutController::class, 'index'])->name('checkout.index');
 // Route::post('checkout/order', [CheckOutController::class, 'order'])->name('checkout.order');
@@ -75,14 +75,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', IsAdmin::class]], fu
 });
 
 Route::middleware(['auth', 'user-access:user'])->group(function () {
-    Route::get('/', [FrontController::class, 'index'])->name('frontEnd.index');
-    Route::get('contact', [FrontController::class, 'contact']);
-    Route::get('shop', [FrontController::class, 'shop']);
-    Route::get('/shop/kategori/{id}', [FrontController::class, 'kategori'])->name('shop.kategori');
-    Route::get('/kontak', [FrontController::class, 'kontak'])->name('kontak');
-    Route::post('/message', [FrontController::class, 'sendMessage'])->name('sendMessage');
+    // Route::get('/', [FrontController::class, 'index'])->name('frontEnd.index');
+    // Route::get('contact', [FrontController::class, 'contact']);
+    // Route::get('shop', [FrontController::class, 'shop']);
+    // Route::get('/shop/kategori/{id}', [FrontController::class, 'kategori'])->name('shop.kategori');
+    // Route::get('/kontak', [FrontController::class, 'kontak'])->name('kontak');
     Route::get('wishlist', [FrontController::class, 'wishlist']);
-    Route::get('about', [FrontController::class, 'about']);
+    // Route::get('about', [FrontController::class, 'about']);
 
     Route::get('cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('cart/', [CartController::class, 'store'])->name('cart.store');
@@ -90,7 +89,7 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::post('cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::post('cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
-    Route::get('/shop/detail/{id}', [FrontController::class, 'detail'])->name('shop.detail');
+    // Route::get('/shop/detail/{id}', [FrontController::class, 'detail'])->name('shop.detail');
 
     Route::get('checkout', [CheckOutController::class, 'index'])->name('checkout.index');
     Route::post('checkout/order', [CheckOutController::class, 'order'])->name('checkout.order');

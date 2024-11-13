@@ -76,7 +76,13 @@
             </div>
             <div class="row block-9">
                 <div class="col-md-6 order-md-last d-flex">
-                    <form action="{{ route('sendMessage')}}" method="POST" class="bg-white p-5 contact-form" id="contact-form1">
+                    @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                    @endif
+
+                    <form action="{{ route('send.contact') }}" method="POST" class="bg-white p-5 contact-form" id="contact-form1">
                         @csrf
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Your Name" name="name" required>
@@ -142,7 +148,7 @@
     <script src="{{asset('frontAsset/js/google-map.js')}}"></script>
     <script src="{{asset('frontAsset/js/main.js')}}"></script>
 
-    <script>
+    {{-- <script>
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -150,33 +156,33 @@
 
             fetch('{{ route('
                     sendMessage ')}}', {
-                        method: 'POST'
-                        , headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        }
-                        , body: formData
-                    })
-                .then(response => response.text()) // Ubah dari .json() ke .text() untuk debugging
-                .then(data => {
-                    console.log(data); // Cek isi data
-                    let jsonData;
-                    try {
-                        jsonData = JSON.parse(data); // Parsing manual setelah memastikan respons benar
-                    } catch (error) {
-                        console.error('JSON parsing error:', error);
-                        return; // Keluar dari fungsi jika parsing gagal
-                    }
-                    if (jsonData.success) {
-                        alert('Message sent successfully.');
-                        document.getElementById('contact-form').reset();
-                    } else {
-                        alert('There was an error sending the message.');
-                    }
-                }))
-        .catch(error => console.error('Error:', error));
-        });
+    method: 'POST'
+    , headers: {
+    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    }
+    , body: formData
+    })
+    .then(response => response.text()) // Ubah dari .json() ke .text() untuk debugging
+    .then(data => {
+    console.log(data); // Cek isi data
+    let jsonData;
+    try {
+    jsonData = JSON.parse(data); // Parsing manual setelah memastikan respons benar
+    } catch (error) {
+    console.error('JSON parsing error:', error);
+    return; // Keluar dari fungsi jika parsing gagal
+    }
+    if (jsonData.success) {
+    alert('Message sent successfully.');
+    document.getElementById('contact-form').reset();
+    } else {
+    alert('There was an error sending the message.');
+    }
+    }))
+    .catch(error => console.error('Error:', error));
+    });
 
-    </script>
+    </script> --}}
 
 
 </body>

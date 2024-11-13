@@ -56,15 +56,43 @@ class FrontController extends Controller
         return view('frontend.about');
     }
 
-    public function sendMessage(Request $request)
+    public function sendContact(Request $request)
     {
-        // dd($request->all());
-        $validatedData = $request->validate([
+        // Validasi input dari form
+        $request->validate([
             'name' => 'required',
             'email' => 'required|email',
             'subject' => 'required',
             'message' => 'required',
         ]);
+
+        // Detail pesan yang akan dikirim
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'message' => $request->message,
+        ];
+
+        // Kirim email menggunakan Mail facade
+        Mail::send('emails.contact', ['data' => $data], function($message) use ($data) {
+            $message->from($data['email'], $data['name']);
+            $message->to('mszchaca@gmail.com') // Ganti dengan email penerima
+                    ->subject($data['subject']);
+        });
+
+        return back()->with('success', 'Pesan telah terkirim!');
+    }
+
+    // public function sendMessage(Request $request)
+    // {
+    //     // dd($request->all());
+    //     $validatedData = $request->validate([
+    //         'name' => 'required',
+    //         'email' => 'required|email',
+    //         'subject' => 'required',
+    //         'message' => 'required',
+    //     ]);
         // dd($validatedData);
         // Proses penyimpanan atau pengiriman email
         // Misalnya, kirim email:
@@ -72,18 +100,18 @@ class FrontController extends Controller
 
         // return response()->json(['success' => 'Message sent successfully.']);
 
-        $name = $request->name ?? 'Anonymous';
-        $email = $request->email ?? 'no-email@example.com';
-        $subject = $request->subject ?? 'No Subject';
-        $messageContent = $request->message ?? 'No message';
+    //     $name = $request->name ?? 'Anonymous';
+    //     $email = $request->email ?? 'no-email@example.com';
+    //     $subject = $request->subject ?? 'No Subject';
+    //     $messageContent = $request->message ?? 'No message';
 
-        Mail::send([], [], function ($message) use ($request) {
-            $message->to('exaltedgaraga@gmail.com')
-                ->subject($request->subject)
-                ->html('<p>' . $request->message . '</p><p>Dari: ' . $request->name . ' &lt;' . $request->email . '&gt;</p>');
-        });
+    //     Mail::send([], [], function ($message) use ($request) {
+    //         $message->to('exaltedgaraga@gmail.com')
+    //             ->subject($request->subject)
+    //             ->html('<p>' . $request->message . '</p><p>Dari: ' . $request->name . ' &lt;' . $request->email . '&gt;</p>');
+    //     });
 
-        return back()->with('success', 'Pesan berhasil dikirim!');
-    }
+    //     return back()->with('success', 'Pesan berhasil dikirim!');
+    // }
 
 }
