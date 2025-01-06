@@ -41,6 +41,9 @@
                     <li><a href="{{route('produk.index')}}" id="ecommerce-products"><i
                                 class="material-icons-outlined">arrow_right</i>Products</a>
                     </li>
+                    <li><a href="{{route('order.index')}}" id="ecommerce-products"><i
+                        class="material-icons-outlined">arrow_right</i>Orders</a>
+                    </li>
                     {{-- <li><a href="ecommerce-customers.html"><i
                                 class="material-icons-outlined">arrow_right</i>Customers</a>
                     </li>

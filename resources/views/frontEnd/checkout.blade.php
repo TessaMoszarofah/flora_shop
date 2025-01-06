@@ -69,7 +69,7 @@
                         @csrf
                         <h3 class="mb-4 billing-heading" id="data-customer">Billing Details</h3>
                         <div class="row align-items-end">
-                            <div class="w-100"></div>
+                            <div class="w-100"></div>                           
                             <div class="col-md-12" id="form-alamat">
                                 <div class="form-group">
                                     <label for="streetaddress">Alamat</label>

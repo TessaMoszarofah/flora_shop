@@ -29,7 +29,7 @@ test('halaman utama memiliki judul dan tautan', async ({ page }) => {
   await expect(page).toHaveURL(/.*about/);
 
   // Klik tombol shop now
-  await page.click('button:text("Shop now")');
+  await page.click('#shopping');
 
   // Lanjutkan ke halaman shop
   await page.goto('http://127.0.0.1:8000/shop');

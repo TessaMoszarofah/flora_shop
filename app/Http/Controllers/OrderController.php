@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Produk;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -12,24 +14,26 @@ class OrderController extends Controller
      */
     public function index()
     {
-        // Tampilkan halaman checkout dengan item keranjang
-        $cart = Cart::where('user_id', auth()->id())->first();
-        return view('checkout.index', ['cart' => $cart]);
+        $orders = Order::with(['user', 'produk'])->get();
+        return view('admin.order.index', compact('orders'));
+        // // Tampilkan halaman checkout dengan item keranjang
+        // $cart = Cart::where('user_id', auth()->id())->first();
+        // return view('checkout.index', ['cart' => $cart]);
     }
 
     // proses checkout
     public function process(Request $request)
     {
-        // Proses checkout (misalnya, membuat pesanan, mengurangi stok, dll.)
-        $cart = Cart::where('user_id', auth()->id())->first();
+        // // Proses checkout (misalnya, membuat pesanan, mengurangi stok, dll.)
+        // $cart = Cart::where('user_id', auth()->id())->first();
 
-        // Misalnya, buat pesanan baru
-        // $order = Order::create([...]);
+        // // Misalnya, buat pesanan baru
+        // // $order = Order::create([...]);
 
-        // Hapus keranjang setelah checkout berhasil
-        $cart->delete();
+        // // Hapus keranjang setelah checkout berhasil
+        // $cart->delete();
 
-        return redirect()->route('home')->with('success', 'Checkout berhasil!');
+        // return redirect()->route('home')->with('success', 'Checkout berhasil!');
     }
 
     /**
@@ -75,8 +79,11 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Order $order)
+    public function destroy(String $id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $order->delete();
+        toast('Data delete Successfully', 'success')->autoClose(1000);
+        return redirect()->route('order.index');
     }
 }

@@ -135,7 +135,7 @@
             </div>
         </div>
     </div>
-    <!--start switcher-->
+    <!--end switcher-->
 
     <!--bootstrap js-->
     <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>

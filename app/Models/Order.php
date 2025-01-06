@@ -16,24 +16,24 @@ class Order extends Model
 
     protected $visible = ['id', 'user_id', 'produk_id', 'alamat', 'kota', 'kode_pos', 'phone', 'email', 'metode_pembayaran'];
 
-    protected $timetamps = true;
+    public $timestamps = true;
 
     public function Order()
     {
-        return $this->hasMany(App\Http\Models\Transaksi::class);
+        return $this->hasMany(Transaksi::class);
     }
 
     public function Produk()
     {
-        return $this->belongsTo(App\Models\Produk::class, 'produk_id');
+        return $this->belongsTo(Produk::class, 'produk_id');
     }
 
     public function User()
     {
-        return $this->belongsTo(App\Models\User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
     public function Transaksi()
     {
-        return $this->hasMany(App\Models\Transaksi::class, 'user_id');
+        return $this->hasMany(Transaksi::class, 'user_id');
     }
 }

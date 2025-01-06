@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckOutController;
+// use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FrontController;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +41,7 @@ Route::get('tes', function () {
     return view('frontEnd.detail');
 });
 
-// Route::get('/', [FrontController::class, 'index'])->name('frontEnd.index');
+Route::get('/', [FrontController::class, 'index'])->name('frontEnd.index');
 Route::get('contact', [FrontController::class, 'contact']);
 Route::get('shop', [FrontController::class, 'shop']);
 Route::get('/shop/kategori/{id}', [FrontController::class, 'kategori'])->name('shop.kategori');
@@ -70,13 +71,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', IsAdmin::class]], fu
     Route::resource('user', App\Http\Controllers\UserController::class);
     Route::resource('kategori', App\Http\Controllers\KategoriController::class);
     Route::resource('produk', App\Http\Controllers\ProdukController::class);
-    Route::resource('Order', App\Http\Controllers\OrderController::class);
+    Route::resource('order', App\Http\Controllers\OrderController::class);
     Route::resource('Transaksi', App\Http\Controllers\TransaksiController::class);
 });
 
 Route::middleware(['auth', 'user-access:user'])->group(function () {
     // Route::get('/', [FrontController::class, 'index'])->name('frontEnd.index');
-    // Route::get('contact', [FrontController::class, 'contact']);
+    Route::get('contact', [FrontController::class, 'contact']);
     // Route::get('shop', [FrontController::class, 'shop']);
     // Route::get('/shop/kategori/{id}', [FrontController::class, 'kategori'])->name('shop.kategori');
     // Route::get('/kontak', [FrontController::class, 'kontak'])->name('kontak');

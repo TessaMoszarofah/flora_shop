@@ -58,18 +58,31 @@ class CheckOutController extends Controller
             $total += $cart->quantity * $cart->produk->harga;
         }
         $userId= Auth::id();
-        $order = Order::create([
-            'user_id' => $userId,
-            'alamat' => $request->alamat,
-            'kota' => $request->kota,
-            'kode_pos' => $request->kode_pos,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            // 'payment_method' => $request->payment_method,
-            'total' => $total
-        ]);
+        $produkId= Auth::id();
+        // $order = Order::create([
+        //     'user_id' => $userId,
+        //     'produk_id' => $produkId,
+        //     'alamat' => $request->alamat,
+        //     'kota' => $request->kota,
+        //     'kode_pos' => $request->kode_pos,
+        //     'phone' => $request->phone,
+        //     'email' => $request->email,
+        //     // 'payment_method' => $request->payment_method,
+        //     'total' => $total
+        // ]);
 
         foreach ($carts as $cart) {
+            $order = Order::create([
+                'user_id' => $userId,
+                'produk_id' =>$cart->id_produk,
+                'alamat' => $request->alamat,
+                'kota' => $request->kota,
+                'kode_pos' => $request->kode_pos,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                // 'payment_method' => $request->payment_method,
+                'total' => $total
+            ]);
             Transaksi::create([
                 'order_id' => $order->id,
                 'produk_id' => $cart->id_produk,
