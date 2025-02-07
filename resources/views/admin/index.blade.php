@@ -21,20 +21,25 @@
                         </div>
                         <div class="d-flex align-items-center gap-5">
                             <div class="">
-                                <h4 class="mb-1 fw-semibold d-flex align-content-center">$65.4K<i class="ti ti-arrow-up-right fs-5 lh-base text-success"></i>
+                                @if(isset($todaySales) && $todaySales > 0)
+                                <h4 class="mb-1 fw-semibold d-flex align-content-center">{{$formattedTotalSales}}<i class="ti ti-arrow-up-right fs-5 lh-base text-success"></i>
                                 </h4>
+                                @else
+                                <h4 class="mb-1 fw-semibold d-flex align-content-center">0<i class="ti ti-arrow-up-right fs-5 lh-base text-success"></i>
+                                </h4>
+                                @endif
                                 <p class="mb-3">Today's Sales</p>
                                 <div class="progress mb-0" style="height:5px;">
-                                    <div class="progress-bar bg-grd-success" role="progressbar" style="width: 60%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar bg-grd-success" role="progressbar" style="width: {{$salesProgress}}%" aria-valuenow="{{$salesProgress}}" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                             <div class="vr"></div>
                             <div class="">
-                                <h4 class="mb-1 fw-semibold d-flex align-content-center">78.4%<i class="ti ti-arrow-up-right fs-5 lh-base text-success"></i>
+                                <h4 class="mb-1 fw-semibold d-flex align-content-center">{{$formattedGrowthRate }} %<i class="ti ti-arrow-up-right fs-5 lh-base text-success"></i>
                                 </h4>
                                 <p class="mb-3">Growth Rate</p>
                                 <div class="progress mb-0" style="height:5px;">
-                                    <div class="progress-bar bg-grd-danger" role="progressbar" style="width: 60%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar bg-grd-danger" role="progressbar" style="width: {{$growthProgress}}%" aria-valuenow="{{$growthProgress}}" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                         </div>

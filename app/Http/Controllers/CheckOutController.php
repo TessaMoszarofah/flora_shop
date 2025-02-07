@@ -87,7 +87,7 @@ class CheckOutController extends Controller
                 'order_id' => $order->id,
                 'produk_id' => $cart->id_produk,
                 'quantity' => $cart->quantity,
-                'price' => $cart->produk->harga,
+                'price' => $cart->produk->harga * $cart->quantity,
             ]);
             $produk = Produk::findOrFail($cart->id_produk);
             $produk->stok = $cart->produk->stok - $cart->quantity;

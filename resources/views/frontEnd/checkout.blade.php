@@ -213,6 +213,34 @@
             <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
 
 
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const orderButton = document.getElementById('order');
+                    
+                    if (orderButton) {
+                        orderButton.addEventListener('click', function(event) {
+                            event.preventDefault();
+                            Swal.fire({
+                                title: 'Berhasil!',
+                                text: 'Pesanan Anda berhasil dibuat! Terima kasih telah berbelanja di Flora Shop.',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    const formId = this.dataset.formId;
+                                    const form = document.getElementById(formId);
+                                    if (form) {
+                                        form.submit();
+                                    }
+                                }
+                            });
+                        });
+                    }
+                });
+            </script>
+            
+    
     <script src="{{asset('frontAsset/js/jquery.min.js')}}"></script>
     <script src="{{asset('frontAsset/js/jquery-migrate-3.0.1.min.js')}}"></script>
     <script src="{{asset('frontAsset/js/popper.min.js')}}"></script>

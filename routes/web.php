@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckOutController;
 // use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -64,9 +65,10 @@ Route::get('/shop/detail/{id}', [FrontController::class, 'detail'])->name('shop.
 // tugas 25 juni 2024
 // Route Admin(Backend)
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', IsAdmin::class]], function () {
-    Route::get('/', function () {
-        return view('admin.index');
-    });
+    // Route::get('/', function () {
+    //     return view('admin.index');
+    // });
+    Route::get('/', [DashboardController::class,'dashboardView'])->name('dashboard.dashboardView');
     // untuk Route Backend Lainnya
     Route::resource('user', App\Http\Controllers\UserController::class);
     Route::resource('kategori', App\Http\Controllers\KategoriController::class);

@@ -57,7 +57,11 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        // Memuat data terkait user dan produk untuk pesanan ini
+        $order->load('user', 'produk');
+        
+        // Mengembalikan view 'order.show' dengan data pesanan
+        return view('admin.order.show', compact('order'));
     }
 
     /**

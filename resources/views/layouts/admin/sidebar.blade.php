@@ -35,14 +35,11 @@
                     <div class="menu-title">eCommerce</div>
                 </a>
                 <ul>
-                    <li><a href="{{route('kategori.index')}}" id="ecommerce-category"><i
-                                class="material-icons-outlined">arrow_right</i>Category</a>
+                    <li><a href="{{route('kategori.index')}}" id="ecommerce-category"><i class="material-icons-outlined">arrow_right</i>Category</a>
                     </li>
-                    <li><a href="{{route('produk.index')}}" id="ecommerce-products"><i
-                                class="material-icons-outlined">arrow_right</i>Products</a>
+                    <li><a href="{{route('produk.index')}}" id="ecommerce-products"><i class="material-icons-outlined">arrow_right</i>Products</a>
                     </li>
-                    <li><a href="{{route('order.index')}}" id="ecommerce-products"><i
-                        class="material-icons-outlined">arrow_right</i>Orders</a>
+                    <li><a href="{{route('order.index')}}" id="ecommerce-products"><i class="material-icons-outlined">arrow_right</i>Orders</a>
                     </li>
                     {{-- <li><a href="ecommerce-customers.html"><i
                                 class="material-icons-outlined">arrow_right</i>Customers</a>
@@ -57,61 +54,18 @@
                     </li> --}}
                 </ul>
             </li>
-            {{-- <li>
+           
+            <li>
                 <a class="has-arrow" href="javascript:;">
                     <div class="parent-icon"><i class="material-icons-outlined">card_giftcard</i>
                     </div>
-                    <div class="menu-title">Components</div>
+                    <div class="menu-title">Laporan</div>
                 </a>
                 <ul>
                     <li><a href="component-alerts.html"><i class="material-icons-outlined">arrow_right</i>Alerts</a>
                     </li>
-                    <li><a href="component-accordions.html"><i
-                                class="material-icons-outlined">arrow_right</i>Accordions</a>
-                    </li>
-                    <li><a href="component-badges.html"><i class="material-icons-outlined">arrow_right</i>Badges</a>
-                    </li>
-                    <li><a href="component-buttons.html"><i class="material-icons-outlined">arrow_right</i>Buttons</a>
-                    </li>
-                    <li><a href="component-carousels.html"><i
-                                class="material-icons-outlined">arrow_right</i>Carousels</a>
-                    </li>
-                    <li><a href="component-media-object.html"><i class="material-icons-outlined">arrow_right</i>Media
-                            Objects</a>
-                    </li>
-                    <li><a href="component-modals.html"><i class="material-icons-outlined">arrow_right</i>Modals</a>
-                    </li>
-                    <li><a href="component-navs-tabs.html"><i class="material-icons-outlined">arrow_right</i>Navs &
-                            Tabs</a>
-                    </li>
-                    <li><a href="component-navbar.html"><i class="material-icons-outlined">arrow_right</i>Navbar</a>
-                    </li>
-                    <li><a href="component-paginations.html"><i
-                                class="material-icons-outlined">arrow_right</i>Pagination</a>
-                    </li>
-                    <li><a href="component-popovers-tooltips.html"><i
-                                class="material-icons-outlined">arrow_right</i>Popovers
-                            & Tooltips</a>
-                    </li>
-                    <li><a href="component-progress-bars.html"><i
-                                class="material-icons-outlined">arrow_right</i>Progress</a>
-                    </li>
-                    <li><a href="component-spinners.html"><i class="material-icons-outlined">arrow_right</i>Spinners</a>
-                    </li>
-                    <li><a href="component-notifications.html"><i
-                                class="material-icons-outlined">arrow_right</i>Notifications</a>
-                    </li>
-                    <li><a href="component-avtars-chips.html"><i class="material-icons-outlined">arrow_right</i>Avatrs &
-                            Chips</a>
-                    </li>
-                    <li><a href="component-typography.html"><i
-                                class="material-icons-outlined">arrow_right</i>Typography</a>
-                    </li>
-                    <li><a href="component-text-utilities.html"><i
-                                class="material-icons-outlined">arrow_right</i>Utilities</a>
-                    </li>
                 </ul>
-            </li> --}}
+            </li>
             {{-- <li>
                 <a class="has-arrow" href="javascript:;">
                     <div class="parent-icon"><i class="material-icons-outlined">view_agenda</i>
@@ -353,4 +307,4 @@
         </ul>
         <!--end navigation-->
     </div>
-  </aside>
+</aside>
