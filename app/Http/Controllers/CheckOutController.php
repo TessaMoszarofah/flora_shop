@@ -98,6 +98,9 @@ class CheckOutController extends Controller
         return redirect()->route('frontEnd.index')->with('success', 'Order berhasil dibuat.');
     }
 
+    
+    
+
     /**
      * Display the specified resource.
      */

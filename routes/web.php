@@ -92,6 +92,7 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::post('cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::post('cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
+
     // Route::get('/shop/detail/{id}', [FrontController::class, 'detail'])->name('shop.detail');
 
     Route::get('checkout', [CheckOutController::class, 'index'])->name('checkout.index');

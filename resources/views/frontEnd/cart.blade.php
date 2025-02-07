@@ -119,6 +119,13 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <!-- Tambahkan button checkout di bawah tabel -->
+                        @if(!$cartItems->isEmpty())
+                        <div class="text-right mt-3">
+                            <a href="{{ url('/checkout') }}" class="btn btn-primary">Checkout</a>
+                        </div>
+                        @endif
+                        <br>
                     </div>
                 </div>
             </div>
