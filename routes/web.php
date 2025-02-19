@@ -91,6 +91,8 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::post('cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::post('cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::post('cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+    // route checkbox
+    Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 
 
     // Route::get('/shop/detail/{id}', [FrontController::class, 'detail'])->name('shop.detail');

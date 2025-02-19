@@ -41,6 +41,7 @@
                 });
             });
         });
+
     </script>
 </head>
 <body class="goto-here">
@@ -74,13 +75,14 @@
                                     <th>Price</th>
                                     <th>Quantity</th>
                                     <th>Total</th>
+                                    <th>&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if($cartItems->isEmpty())
-                                    <tr>
-                                        <td colspan="6" class="justify-content-center align-items-center text-center"> <b>cart kosong</b></td>
-                                    </tr>
+                                <tr>
+                                    <td colspan="6" class="justify-content-center align-items-center text-center"> <b>cart kosong</b></td>
+                                </tr>
                                 @endif
                                 @foreach($cartItems as $item)
 
@@ -115,6 +117,9 @@
                                     </td>
 
                                     <td class="total">Rp. {{ number_format($item->produk->harga * $item->quantity) }}</td>
+                                    <td class="product-select">
+                                        <input type="checkbox" name="selected_items[]" value="{{ $item->id }}" class="item-checkbox">
+                                    </td>
                                 </tr><!-- END TR-->
                                 @endforeach
                             </tbody>
@@ -122,7 +127,7 @@
                         <!-- Tambahkan button checkout di bawah tabel -->
                         @if(!$cartItems->isEmpty())
                         <div class="text-right mt-3">
-                            <a href="{{ url('/checkout') }}" class="btn btn-primary">Checkout</a>
+                            <a href="{{ url('/checkout') }}" id="order" class="btn btn-primary">Checkout</a>
                         </div>
                         @endif
                         <br>
@@ -217,6 +222,66 @@
         });
 
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const orderButton = document.getElementById("order");
+            const checkboxes = document.querySelectorAll(".item-checkbox");
+
+            // Load checkbox state dari LocalStorage
+            checkboxes.forEach((checkbox) => {
+                const itemId = checkbox.value;
+                const isChecked = localStorage.getItem(`cart-item-${itemId}`) === "true";
+                checkbox.checked = isChecked;
+            });
+
+            // Simpan pilihan ke LocalStorage saat checkbox diklik
+            checkboxes.forEach((checkbox) => {
+                checkbox.addEventListener("change", function() {
+                    localStorage.setItem(`cart-item-${this.value}`, this.checked);
+                });
+            });
+
+            // Cek apakah ada checkbox yang dipilih saat klik "Checkout"
+            orderButton.addEventListener("click", function(event) {
+                event.preventDefault();
+
+                let selectedItems = [];
+                checkboxes.forEach((checkbox) => {
+                    if (checkbox.checked) {
+                        selectedItems.push(checkbox.value);
+                    }
+                });
+
+                if (selectedItems.length === 0) {
+                    Swal.fire({
+                        title: "Pilih Produk!"
+                        , text: "Silakan pilih setidaknya satu produk untuk di-checkout."
+                        , icon: "warning"
+                        , confirmButtonText: "OK"
+                    , });
+                } else {
+                    Swal.fire({
+                        title: "Checkout?"
+                        , text: "Apakah Anda ingin melanjutkan ke checkout hanya dengan produk yang dipilih?"
+                        , icon: "question"
+                        , showCancelButton: true
+                        , confirmButtonText: "Lanjut"
+                        , cancelButtonText: "Batal"
+                    , }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Kirim hanya item yang dipilih ke halaman checkout
+                            let checkoutUrl = `{{ url('/checkout') }}?selectedItems=${selectedItems.join(",")}`;
+                            window.location.href = checkoutUrl;
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+
 
 </body>
 </html>
