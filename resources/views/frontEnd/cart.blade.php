@@ -30,6 +30,31 @@
     <link rel="stylesheet" href="{{asset('frontAsset/css/flaticon.css')}}">
     <link rel="stylesheet" href="{{asset('frontAsset/css/icomoon.css')}}">
     <link rel="stylesheet" href="{{asset('frontAsset/css/style.css')}}">
+    <style>
+        .checkout-btn {
+            background-color: #8CBF4D; /* Warna hijau */
+            color: white !important; /* Paksa warna teks menjadi putih */
+            font-size: 16px;
+            font-weight: bold; /* Agar teks lebih tegas */
+            border: none;
+            padding: 10px 30px; /* Tambah padding supaya lebih lebar */
+            border-radius: 20px; /* Membuat sudut membulat */
+            outline: none;
+            cursor: pointer;
+            box-shadow: 0 0 5px #ADD8E6; /* Efek bayangan biru muda */
+            transition: 0.3s;
+            border: 2px solid #8CBF4D; /* Border hijau */
+            display: inline-block; /* Pastikan tidak mengecil */
+            min-width: 120px; /* Lebar minimal tombol */
+            text-align: center; /* Agar teks rata tengah */
+        }
+
+        .checkout-btn:hover {
+            background-color: white; /* Warna putih saat hover */
+            color: #8CBF4D !important; /* Warna teks hijau saat hover */
+            border: 2px solid #8CBF4D; /* Border tetap hijau */
+        }
+    </style>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             document.querySelectorAll('.JSV a').forEach(function(element) {
@@ -61,82 +86,88 @@
         </div>
     </div>
 
-    <section class="ftco-section ftco-cart" id="data-Cart">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 ftco-animate">
-                    <div class="cart-list">
-                        <table class="table">
-                            <thead class="thead-primary">
-                                <tr class="text-center">
-                                    <th>&nbsp;</th>
-                                    <th>&nbsp;</th>
-                                    <th>Product name</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th>&nbsp;</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if($cartItems->isEmpty())
-                                <tr>
-                                    <td colspan="6" class="justify-content-center align-items-center text-center"> <b>cart kosong</b></td>
-                                </tr>
-                                @endif
-                                @foreach($cartItems as $item)
+    <form action="{{route('cart.select')}}" method="post" class="JSVV">
+        @csrf
+        <section class="ftco-section ftco-cart" id="data-Cart">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 ftco-animate">
+                        <div class="cart-list">
+                            <table class="table">
+                                <thead class="thead-primary">
+                                    <tr class="text-center">
+                                        <th>&nbsp;</th>
+                                        <th>&nbsp;</th>
+                                        <th>Product name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if($cartItems->isEmpty())
+                                    <tr>
+                                        <td colspan="6" class="justify-content-center align-items-center text-center"> <b>cart kosong</b></td>
+                                    </tr>
+                                    @endif
+                                    @foreach($cartItems as $item)
 
-                                <tr class="text-center">
-                                    <td class="product-remove">
-                                        <form action="{{ route('cart.remove', $item->id) }}" method="post" id="myForm-{{$item->id}}" class="JSV">
-                                            @csrf
-                                            <a href="javascript:void(0);" class="JSV" data-form-id="myForm-{{ $item->id }}"><span class="ion-ios-close" onclick="submitForm()"></span></a>
-                                            {{-- <a type="submit" href="{{ route('cart.remove', $item->id) }}"><span class="ion-ios-close"></span></a> --}}
-                                        </form>
-                                    </td>
-
-                                    <td class="image-prod">
-                                        <div class="img" style="background-image:url({{asset('images/produk/'. $item->produk->gambar)}});"></div>
-                                    </td>
-
-                                    <td class="product-name">
-                                        <h3>{{$item->produk->nama_produk}}</h3>
-                                        <p></p>
-                                    </td>
-
-                                    <td class="price">Rp. {{number_format($item->produk->harga)}}</td>
-
-                                    <td class="quantity">
-                                        <div class="input-group mb-3">
-                                            <form action="{{ route('cart.update', $item->id) }}" method="post">
+                                    <tr class="text-center">
+                                        <td class="product-remove">
+                                            <form action="{{ route('cart.remove', $item->id) }}" method="post" id="myForm-{{$item->id}}" class="JSV">
                                                 @csrf
-                                                <input type="text" name="quantity" class="quantity form-control input-number" value="{{$item->quantity}}" min="1" max="100">
-                                                <button type="submit" hidden></button>
+                                                <a href="javascript:void(0);" class="JSV" data-form-id="myForm-{{ $item->id }}"><span class="ion-ios-close" onclick="submitForm()"></span></a>
+                                                {{-- <a type="submit" href="{{ route('cart.remove', $item->id) }}"><span class="ion-ios-close"></span></a> --}}
                                             </form>
-                                        </div>
-                                    </td>
+                                        </td>
 
-                                    <td class="total">Rp. {{ number_format($item->produk->harga * $item->quantity) }}</td>
-                                    <td class="product-select">
-                                        <input type="checkbox" name="selected_items[]" value="{{ $item->id }}" class="item-checkbox">
-                                    </td>
-                                </tr><!-- END TR-->
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!-- Tambahkan button checkout di bawah tabel -->
-                        @if(!$cartItems->isEmpty())
-                        <div class="text-right mt-3">
-                            <a href="{{ url('/checkout') }}" id="order" class="btn btn-primary">Checkout</a>
+                                        <td class="image-prod">
+                                            <div class="img" style="background-image:url({{asset('images/produk/'. $item->produk->gambar)}});"></div>
+                                        </td>
+
+                                        <td class="product-name">
+                                            <h3>{{$item->produk->nama_produk}}</h3>
+                                            <p></p>
+                                        </td>
+
+                                        <td class="price">Rp. {{number_format($item->produk->harga)}}</td>
+
+                                        <td class="quantity">
+                                            <div class="input-group mb-3">
+                                                <form action="{{ route('cart.update', $item->id) }}" method="post">
+                                                    @csrf
+                                                    <input type="text" name="quantity" class="quantity form-control input-number" value="{{$item->quantity}}" min="1" max="100">
+                                                    <button type="submit" hidden></button>
+                                                </form>
+                                            </div>
+                                        </td>
+
+                                        <td class="total">Rp. {{ number_format($item->produk->harga * $item->quantity) }}</td>
+                                        <td class="product-select">
+                                            <input type="checkbox" name="checked_items[]" value="{{ $item->id }}" class="item-checkbox" {{ $item->is_selected ? 'checked' : '' }}>
+                                        </td>
+                                    </tr><!-- END TR-->
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- Tambahkan button checkout di bawah tabel -->
+                            @if(!$cartItems->isEmpty())
+                            <div class="text-right mt-3">
+                                {{-- <button type="submit" id="order" class="btn btn-primary">Checkout</button> --}}
+                                <a href="javascript:void(0);" id="order" class="btn btn-primary">Checkout</a>
+                                {{-- <button type="submit" id="order" class="checkout-btn">Checkout</button> --}}
+
+                            </div>
+                            @endif
+                            <br>
                         </div>
-                        @endif
-                        <br>
                     </div>
                 </div>
-            </div>
 
-        </div>
-    </section>
+            </div>
+        </section>
+    </form>
 
     <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
         <div class="container py-4">
@@ -184,6 +215,28 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="{{asset('frontAsset/js/google-map.js')}}"></script>
     <script src="{{asset('frontAsset/js/main.js')}}"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Event listener untuk hapus item dari keranjang
+            document.querySelectorAll('.JSVV a').forEach(function (element) {
+                element.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    var formId = this.dataset.formId;
+                    console.log("Submitting form ID: " + formId);
+                    document.getElementById(formId).submit();
+                });
+            });
+    
+            // Event listener untuk tombol Checkout
+            document.getElementById('order').addEventListener('click', function (event) {
+                event.preventDefault();
+                console.log("Submitting main form...");
+                document.querySelector('.JSVV').submit(); // Submit form utama
+            });
+        });
+    </script>
+
 
     <script>
         $(document).ready(function() {
@@ -272,8 +325,8 @@
                     , }).then((result) => {
                         if (result.isConfirmed) {
                             // Kirim hanya item yang dipilih ke halaman checkout
-                            let checkoutUrl = `{{ url('/checkout') }}?selectedItems=${selectedItems.join(",")}`;
-                            window.location.href = checkoutUrl;
+                            // let checkoutUrl = `{{ url('/checkout') }}?selectedItems=${selectedItems.join(",")}`;
+                            // window.location.href = checkoutUrl;
                         }
                     });
                 }
@@ -281,6 +334,7 @@
         });
 
     </script>
+
 
 
 </body>

@@ -21,7 +21,8 @@ class CheckOutController extends Controller
     public function index()
     {
         $total = 0;
-        $carts = Cart::with('produk')->where('id_user', Auth::id())->get();
+        $carts = Cart::with('produk')->where('id_user', Auth::id())->where('is_selected',1)->get();
+        // $carts = Cart::with('produk')->where('id_user', Auth::id())->get();
         foreach ($carts as $cart) {
             $subTotal = $cart->quantity * $cart->produk->harga;
             $total += $subTotal;
@@ -52,7 +53,7 @@ class CheckOutController extends Controller
         ]);
 
         $total = 0;
-        $carts = Cart::with('produk')->where('id_user', Auth::id())->get();
+        $carts = Cart::with('produk')->where('id_user', Auth::id())->where('is_selected',1)->get();
 
         foreach ($carts as $cart) {
             $total += $cart->quantity * $cart->produk->harga;
