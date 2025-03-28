@@ -99,7 +99,7 @@
                             <div class="col-md-6" id="form-email">
                                 <div class="form-group">
                                     <label for="emailaddress">Email</label>
-                                    <input type="text" name="email" class="form-control" placeholder="">
+                                    <input type="text" name="email" class="form-control" value="{{ auth()->user()->email }}" disabled>
                                 </div>
                             </div>
                             <div class="w-100"></div>

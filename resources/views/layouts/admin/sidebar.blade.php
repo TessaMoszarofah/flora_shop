@@ -55,7 +55,7 @@
                 </ul>
             </li>
            
-            <li>
+            {{-- <li>
                 <a class="has-arrow" href="javascript:;">
                     <div class="parent-icon"><i class="material-icons-outlined">card_giftcard</i>
                     </div>
@@ -65,7 +65,10 @@
                     <li><a href="component-alerts.html"><i class="material-icons-outlined">arrow_right</i>Alerts</a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
+
+
+            
             {{-- <li>
                 <a class="has-arrow" href="javascript:;">
                     <div class="parent-icon"><i class="material-icons-outlined">view_agenda</i>

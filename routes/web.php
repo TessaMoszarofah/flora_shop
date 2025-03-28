@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckOutController;
+use App\Http\Controllers\ProfileController;
 // use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\DashboardController;
@@ -57,7 +58,7 @@ Route::post('/send-contact', [FrontController::class, 'sendContact'])->name('sen
 // Route::post('cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 // Route::post('cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
-Route::get('/shop/detail/{id}', [FrontController::class, 'detail'])->name('shop.detail');
+Route::get('/shop/detail/{nama_produk}', [FrontController::class, 'detail'])->name('shop.detail');
 
 // Route::get('checkout', [CheckOutController::class, 'index'])->name('checkout.index');
 // Route::post('checkout/order', [CheckOutController::class, 'order'])->name('checkout.order');
@@ -100,6 +101,10 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 
     Route::get('checkout', [CheckOutController::class, 'index'])->name('checkout.index');
     Route::post('checkout/order', [CheckOutController::class, 'order'])->name('checkout.order');
+
+    // profile user
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
 
 });
 // Route::middleware(['auth', 'user-access:user'])->group(function () {

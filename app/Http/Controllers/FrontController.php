@@ -31,9 +31,10 @@ class FrontController extends Controller
         $kategori = Kategori::all();
         return view('frontEnd.kategori', compact('produk', 'kategori'));
     }
-    public function detail($id)
+    public function detail($nama_produk)
     {
-        $produk = Produk::findOrFail($id);
+        // $produk = Produk::findOrFail($id);
+        $produk = Produk::where('nama_produk', $nama_produk)->firstOrFail();
         return view('frontend.detail', compact('produk'));
     }
     //  tampilan checkout

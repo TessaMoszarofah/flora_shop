@@ -29,6 +29,11 @@
                   <form action="{{route('logout')}}" method="post" id="logout-form">
                       @csrf
                   </form>
+                  <li class="nav-item">
+                    <a href="{{ url('/profile') }}" class="nav-link">
+                        <span class="icon-user"></span> Profile
+                    </a>
+                </li>                                           
               </li>
               @else
               <li class="nav-item" id="nav-login"><a href="{{ route('login') }}" class="nav-link" id="nav-link-login">Login</a></li>

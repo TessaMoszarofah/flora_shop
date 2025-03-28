@@ -24,7 +24,7 @@
             </div>
             <div class="bottom-area d-flex px-3">
                 <div class="m-auto d-flex">
-                    <a href="{{route('shop.detail', $item->id)}}" id="detailProduct-{{ $item->id }}"  class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                    <a href="{{route('shop.detail', $item->nama_produk)}}" id="detailProduct-{{ $item->id }}"  class="add-to-cart d-flex justify-content-center align-items-center text-center">
                         <span><i class="ion-ios-menu"></i></span>
                     </a>
                     <form action="{{ route('cart.store')}}" method="POST" id="myChart-{{$item->id}}" class="buy-now d-flex justify-content-center align-items-center mx-1">
