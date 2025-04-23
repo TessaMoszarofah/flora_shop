@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('email');
             $table->string('metode_pembayaran')->nullable();
+            $table->string('status');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('produk_id')->references('id')->on('produks')->onDelete('cascade');

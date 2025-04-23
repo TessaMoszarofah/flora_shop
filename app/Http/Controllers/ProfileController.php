@@ -11,7 +11,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('frontEnd.profile', [
+        return view('frontEnd.component.formProfile', [
             'user' => Auth::user(), // Mengambil data pengguna yang sedang login
         ]);
     }

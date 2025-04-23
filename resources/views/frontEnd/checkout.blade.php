@@ -100,14 +100,15 @@
                                 <div class="form-group">
                                     <label for="emailaddress">Email</label>
                                     <input type="text" name="email" class="form-control" value="{{ auth()->user()->email }}" disabled>
+                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                 </div>
                             </div>
                             <div class="w-100"></div>
                             <div class="col-md-12">
                                 <div class="form-group mt-4">
                                     <div class="radio">
-                                        <label class="mr-3"><input type="radio" name="optradio" id="create-account"> Create an Account? </label>
-                                        <label><input type="radio" name="optradio" id="forgot-password"> Ship to different address</label>
+                                        <label class="mr-3"><input type="radio" name="metode_pembayaran" id="create-account"> Create an Account? </label>
+                                        <label><input type="radio" name="metode_pembayaran" id="forgot-password"> Ship to different address</label>
                                     </div>
                                 </div>
                             </div>
@@ -147,21 +148,21 @@
                                     <div class="form-group">
                                         <div class="col-md-12">
                                             <div class="radio">
-                                                <label><input type="radio" name="optradio" class="mr-2"> Direct Bank Tranfer</label>
+                                                <label><input type="radio" name="metode_pembayaran" class="mr-2"> Direct Bank Tranfer</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-12">
                                             <div class="radio">
-                                                <label><input type="radio" name="optradio" class="mr-2"> Check Payment</label>
+                                                <label><input type="radio" name="metode_pembayaran" class="mr-2"> Check Payment</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-12">
                                             <div class="radio">
-                                                <label><input type="radio" name="optradio" class="mr-2"> Paypal</label>
+                                                <label><input type="radio" name="metode_pembayaran" class="mr-2"> Paypal</label>
                                             </div>
                                         </div>
                                     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -36,6 +37,8 @@ class DashboardController extends Controller
             ->sum(DB::raw('quantity * price'));
 
         // Hitung Growth Rate
+        // $growthRate = $yesterdaySales > 0 ? (($todaySales - $yesterdaySales) / $yesterdaySales) * 100: 0;
+
         $growthRate = $yesterdaySales > 0 ? (($todaySales - $yesterdaySales) / $yesterdaySales) * 100: 0;
 
         // Format angka menggunakan fungsi formatNumberShort
@@ -44,9 +47,14 @@ class DashboardController extends Controller
         // Format Growth Rate
         $formattedGrowthRate = round($growthRate, 1); // Bulatkan ke 1 desimal
 
-        $salesProgress = $todaySales > 0 ? min(($todaySales / $yesterdaySales) * 100, 100) : 0;
+        $salesProgress = ($todaySales > 0 && $yesterdaySales > 0) ? min(($todaySales / $yesterdaySales) * 100, 100) : 0;
+
         $growthProgress = $growthRate > 0 ? min($growthRate, 100) : 0;
 
-        return view('admin.index', compact('formattedTotalSales', 'todaySales','formattedGrowthRate','salesProgress','growthProgress'));
+        $orders = Order::where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
+
+        return view('admin.index', compact('formattedTotalSales', 'todaySales','formattedGrowthRate','salesProgress','growthProgress','orders'));
     }
+
+    
 }

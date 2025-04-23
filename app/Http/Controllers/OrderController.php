@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\Produk;
-use App\Models\Kategori;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -19,6 +16,13 @@ class OrderController extends Controller
         // // Tampilkan halaman checkout dengan item keranjang
         // $cart = Cart::where('user_id', auth()->id())->first();
         // return view('checkout.index', ['cart' => $cart]);
+    }
+
+    // riwayat pesanan
+    public function riwayat()
+    {
+        $orders = Order::where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
+        return view('frontEnd.history', compact('orders'));
     }
 
     // proses checkout
@@ -59,7 +63,7 @@ class OrderController extends Controller
     {
         // Memuat data terkait user dan produk untuk pesanan ini
         $order->load('user', 'produk');
-        
+
         // Mengembalikan view 'order.show' dengan data pesanan
         return view('admin.order.show', compact('order'));
     }

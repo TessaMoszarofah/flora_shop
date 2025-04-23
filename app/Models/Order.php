@@ -12,9 +12,9 @@ use App\Models\Transaksi;
 class Order extends Model
 {
     use HasFactory;
-    protected $fillable = ['id', 'user_id', 'produk_id', 'alamat', 'kota', 'kode_pos', 'phone', 'email', 'metode_pembayaran'];
+    protected $fillable = ['id', 'user_id', 'produk_id', 'alamat', 'kota', 'kode_pos', 'phone', 'email', 'metode_pembayaran', 'status', 'total'];
 
-    protected $visible = ['id', 'user_id', 'produk_id', 'alamat', 'kota', 'kode_pos', 'phone', 'email', 'metode_pembayaran'];
+    protected $visible = ['id', 'user_id', 'produk_id', 'alamat', 'kota', 'kode_pos', 'phone', 'email', 'metode_pembayaran', 'status', 'total'];
 
     public $timestamps = true;
 

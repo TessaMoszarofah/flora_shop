@@ -51,7 +51,7 @@ class CartController extends Controller
 
         // dd($userId, $request->id_produk, $request->quantity);
 
-        return redirect()->route('cart.index')->with('success', 'Produk berhasil ditambahkan ke keranjang.');
+        return redirect()->back()->with('success', 'Produk berhasil ditambahkan ke keranjang.');
     }
 
     /**

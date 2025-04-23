@@ -648,7 +648,7 @@
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between mb-3">
                     <div class="">
-                        <h5 class="mb-0">Recent Orders</h5>
+                        <h5 class="mb-0">Data Order</h5>
                     </div>
                     <div class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle-nocaret options dropdown-toggle" data-bs-toggle="dropdown">
@@ -669,119 +669,32 @@
                     <table class="table align-middle">
                         <thead>
                             <tr>
-                                <th>Item Name</th>
-                                <th>Amount</th>
-                                <th>Buyer</th>
+                                <th>Nama Produk</th>
+                                <th>Total</th>
+                                <th>Pembeli</th>
                                 <th>Status</th>
-                                <th>Rating</th>
                             </tr>
                         </thead>
+                        @php $no = 1; @endphp
                         <tbody>
+                            @foreach($orders as $item)
+                                
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center gap-3">
                                         <div class="">
-                                            <img src="{{asset('images/mawar.jpg')}}" class="rounded-circle" width="50" height="50" alt="">
+                                            <img src="" class="rounded-circle" width="50" height="50" alt="">
                                         </div>
-                                        <p class="mb-0">Mawar</p>
+                                        <p class="mb-0">{{ $item->produk->nama_produk ?? 'Data tidak tersedia'}}</p>
                                     </div>
                                 </td>
-                                <td>Rp. 51000</td>
-                                <td>Yaya</td>
+                                <td>Rp. {{ $item->total }}</td>
+                                <td>{{ $item->user->name }}</td>
                                 <td>
-                                    <p class="dash-lable mb-0 bg-success bg-opacity-10 text-success rounded-2">Completed</p>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-1">
-                                        <p class="mb-0">5.0</p>
-                                        <i class="material-icons-outlined text-warning fs-6">star</i>
-                                    </div>
+                                    <p class="dash-lable mb-0 bg-success bg-opacity-10 text-success rounded-2">{{ $item->status }}</p>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-3">
-                                        <div class="">
-                                            <img src="{{asset('images/saga.jpg')}}" class="rounded-circle" width="50" height="50" alt="">
-                                        </div>
-                                        <p class="mb-0">Saga</p>
-                                    </div>
-                                </td>
-                                <td>Rp. 89000</td>
-                                <td>Ririn</td>
-                                <td>
-                                    <p class="dash-lable mb-0 bg-success bg-opacity-10 text-success rounded-2">Completed</p>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-1">
-                                        <p class="mb-0">5.0</p>
-                                        <i class="material-icons-outlined text-warning fs-6">star</i>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-3">
-                                        <div class="">
-                                            <img src="{{asset('images/stevia.jpeg')}}" class="rounded-circle" width="50" height="50" alt="">
-                                        </div>
-                                        <p class="mb-0">Stevia</p>
-                                    </div>
-                                </td>
-                                <td>Rp. 81000</td>
-                                <td>Lisa</td>
-                                <td>
-                                    <p class="dash-lable mb-0 bg-warning bg-opacity-10 text-warning rounded-2">Pending</p>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-1">
-                                        <p class="mb-0">3.5</p>
-                                        <i class="material-icons-outlined text-warning fs-6">star</i>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-3">
-                                        <div class="">
-                                            <img src="{{asset('images/anggrek.jpeg')}}" class="rounded-circle" width="50" height="50" alt="">
-                                        </div>
-                                        <p class="mb-0">Anggrek</p>
-                                    </div>
-                                </td>
-                                <td>Rp. 49000</td>
-                                <td>Messi</td>
-                                <td>
-                                    <p class="dash-lable mb-0 bg-success bg-opacity-10 text-success rounded-2">Completed</p>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-1">
-                                        <p class="mb-0">4.5</p>
-                                        <i class="material-icons-outlined text-warning fs-6">star</i>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-3">
-                                        <div class="">
-                                            <img src="{{asset('images/lidahBuaya.jpg')}}" class="rounded-circle" width="50" height="50" alt="">
-                                        </div>
-                                        <p class="mb-0">lidah Buaya</p>
-                                    </div>
-                                </td>
-                                <td>Rp. 64000</td>
-                                <td>Yudi</td>
-                                <td>
-                                    <p class="dash-lable mb-0 bg-danger bg-opacity-10 text-danger rounded-2">Canceled</p>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-1">
-                                        <p class="mb-0">2.5</p>
-                                        <i class="material-icons-outlined text-warning fs-6">star</i>
-                                    </div>
-                                </td>
-                            </tr>
+                            @endforeach
 
                         </tbody>
                     </table>

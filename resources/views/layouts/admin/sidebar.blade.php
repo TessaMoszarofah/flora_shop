@@ -30,7 +30,7 @@
             <li class="menu-label">Menu</li>
             <li>
                 <a href="javascript:;" class="has-arrow" id="ecommerce-menu">
-                    <div class="parent-icon"><i class="material-icons-outlined">shopping_bag</i>
+                    <div class="parent-icon"><i class="material-icons-outlined">storefront</i>
                     </div>
                     <div class="menu-title">eCommerce</div>
                 </a>
@@ -55,17 +55,28 @@
                 </ul>
             </li>
            
-            {{-- <li>
+            
+
+            <li>
                 <a class="has-arrow" href="javascript:;">
-                    <div class="parent-icon"><i class="material-icons-outlined">card_giftcard</i>
+                    <div class="parent-icon"><i class="material-icons-outlined">description</i>
                     </div>
                     <div class="menu-title">Laporan</div>
                 </a>
                 <ul>
-                    <li><a href="component-alerts.html"><i class="material-icons-outlined">arrow_right</i>Alerts</a>
+                    <li><a href="{{route('laporan.rekap')}}"><i class="material-icons-outlined">arrow_right</i>Rekap Transaksi</a>
+                    <li><a href="#"><i class="material-icons-outlined">arrow_right</i>Laporan Keuangan</a>
                     </li>
                 </ul>
-            </li> --}}
+            </li>
+
+            <li>
+                <a href="#" id="">
+                    <div class="parent-icon"><i class="material-icons-outlined">shopping_bag</i>
+                    </div>
+                    <div class="menu-title">Pesanan</div>
+                </a>
+            </li>
 
 
             

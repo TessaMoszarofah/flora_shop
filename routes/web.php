@@ -3,7 +3,8 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\ProfileController;
-// use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\IsAdmin;
@@ -76,6 +77,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', IsAdmin::class]], fu
     Route::resource('produk', App\Http\Controllers\ProdukController::class);
     Route::resource('order', App\Http\Controllers\OrderController::class);
     Route::resource('Transaksi', App\Http\Controllers\TransaksiController::class);
+    // Route::resource('Laporan', App\Http\Controllers\LaporanController::class);
+    Route::get('/rekap', [LaporanController::class, 'indexRekap'])->name('laporan.rekap');
 });
 
 Route::middleware(['auth', 'user-access:user'])->group(function () {
@@ -105,6 +108,9 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     // profile user
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/riwayat-pesanan', [OrderController::class, 'riwayat'])->name('orders.history');
+    });    
 
 });
 // Route::middleware(['auth', 'user-access:user'])->group(function () {

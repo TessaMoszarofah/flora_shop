@@ -26,6 +26,7 @@
                                         <th>Phone</th>
                                         <th>Email</th>
                                         <th>Metode Pembayaran</th>
+                                        <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -43,7 +44,8 @@
                                             <td>{{ $item->phone }}</td>
                                             <td>{{ $item->email }}</td>
                                             <td>{{ $item->metode_pembayaran }}</td>
-                                            <td>{{ $item->aksi }}</td>
+                                            <td>{{ $item->total }}</td>
+                                            <td></td>
                                             <td>
                                                 <form align="center" action="{{ route('order.destroy', $item->id) }}"
                                                     id="delete-data" method="post">
