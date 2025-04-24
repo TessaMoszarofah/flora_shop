@@ -82,7 +82,8 @@ class CheckOutController extends Controller
                 'phone' => $request->phone,
                 'email' => $request->email,
                 // 'payment_method' => $request->payment_method,
-                'total' => $total
+                'total' => $total,
+                'status' => 'Pending'
             ]);
             Transaksi::create([
                 'order_id' => $order->id,

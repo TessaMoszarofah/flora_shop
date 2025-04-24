@@ -79,6 +79,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', IsAdmin::class]], fu
     Route::resource('Transaksi', App\Http\Controllers\TransaksiController::class);
     // Route::resource('Laporan', App\Http\Controllers\LaporanController::class);
     Route::get('/rekap', [LaporanController::class, 'indexRekap'])->name('laporan.rekap');
+    Route::patch('/order/{id}/status', [OrderController::class, 'updateStatus'])->name('order.updateStatus');
+
 });
 
 Route::middleware(['auth', 'user-access:user'])->group(function () {
@@ -110,6 +112,7 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
     Route::middleware(['auth'])->group(function () {
         Route::get('/riwayat-pesanan', [OrderController::class, 'riwayat'])->name('orders.history');
+        Route::get('/pesanan-saya', [OrderController::class, 'pesananSaya'])->name('orders.pesanan');
     });    
 
 });

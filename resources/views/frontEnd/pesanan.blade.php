@@ -2,11 +2,11 @@
 
 @section('centerContent')
 <div class="col-md-8 mb-4 p-4 bg-white rounded shadow-sm" style="max-width: 750px; overflow-x: auto;">
-    <h2 class="h5 mb-4 fw-bold border-bottom pb-2">🧾 Riwayat Pesanan</h2>
+    <h2 class="h5 mb-4 fw-bold border-bottom pb-2">📦 Pesanan Saya</h2>
 
     @if($orders->isEmpty())
     <div class="alert alert-info mb-0">
-        Belum ada riwayat pesanan.
+        Belum ada pesanan yang sedang diproses.
     </div>
     @else
     <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
@@ -30,14 +30,10 @@
                     </td>
                     <td>Rp {{ number_format($order->total) }}</td>
                     <td>
-                        @if($order->status == 'complate')
-                            <span class="badge bg-success">{{ ucfirst($order->status) }}</span>
-                        @elseif($order->status == 'pending')
-                            <span class="badge bg-warning text-dark">{{ ucfirst($order->status) }}</span>
-                        @elseif($order->status == 'cancel')
-                            <span class="badge bg-danger">{{ ucfirst($order->status) }}</span>
-                        @elseif($order->status == null)
-                            <span class="badge" style="background-color: #6c757d; color: white;">Status Kosong</span>
+                        @if($order->status == 'pending')
+                            <span class="badge bg-warning text-dark">Pending</span>
+                        @else
+                        <span class="badge" style="background-color: #6c757d; color: white;">Status Kosong</span>
                         @endif
                     </td>
                 </tr>

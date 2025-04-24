@@ -21,8 +21,28 @@ class OrderController extends Controller
     // riwayat pesanan
     public function riwayat()
     {
-        $orders = Order::where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
-        return view('frontEnd.history', compact('orders'));
+        // $orders = Order::where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
+        // return view('frontEnd.history', compact('orders'));
+        $orders = Order::with('produk')
+            ->where('user_id', auth()->id())
+            ->whereIn('status', ['complate', 'cancel'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+            return view('frontEnd.history', compact('orders'));
+
+    }
+
+    public function pesananSaya()
+    {
+        $orders = Order::with('produk')
+            ->where('user_id', auth()->id())
+            ->where('status', 'pending')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+            return view('frontEnd.pesanan', compact('orders'));
+
     }
 
     // proses checkout
@@ -38,6 +58,15 @@ class OrderController extends Controller
         // $cart->delete();
 
         // return redirect()->route('home')->with('success', 'Checkout berhasil!');
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $order         = Order::findOrFail($id);
+        $order->status = $request->status;
+        $order->save();
+
+        return redirect()->back()->with('success', 'Status pesanan berhasil diperbarui.');
     }
 
     /**

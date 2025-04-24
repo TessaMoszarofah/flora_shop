@@ -665,7 +665,7 @@
                     <input class="form-control rounded-5 px-5" type="text" placeholder="Search">
                     <span class="material-icons-outlined position-absolute ms-3 translate-middle-y start-0 top-50">search</span>
                 </div>
-                <div class="table-responsive">
+                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                     <table class="table align-middle">
                         <thead>
                             <tr>
@@ -678,12 +678,11 @@
                         @php $no = 1; @endphp
                         <tbody>
                             @foreach($orders as $item)
-                                
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center gap-3">
                                         <div class="">
-                                            <img src="" class="rounded-circle" width="50" height="50" alt="">
+                                            <img src="{{ asset('images/produk/' . $item->produk->gambar) }}" class="rounded-circle" width="50" height="50" alt="">
                                         </div>
                                         <p class="mb-0">{{ $item->produk->nama_produk ?? 'Data tidak tersedia'}}</p>
                                     </div>
@@ -695,10 +694,10 @@
                                 </td>
                             </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                 </div>
+                
             </div>
         </div>
     </div>

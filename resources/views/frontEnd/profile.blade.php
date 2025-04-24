@@ -82,7 +82,7 @@
                         <li><a href="#" class="menu-link"><i class="fas fa-lock me-2"></i> Ubah Password</a></li>
                     </ul>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="menu-link"><i class="fas fa-box me-2"></i> Pesanan Saya</a></li>
+                        <li><a href="{{ route('orders.pesanan') }}" class="menu-link"><i class="fas fa-box me-2"></i> Pesanan Saya</a></li>
                         <li><a href="{{ route('orders.history') }}" class="menu-link"><i class="fas fa-history me-2"></i> Riwayat Pesanan</a></li>
                         <li><a href="{{ url('/kontak') }}" class="menu-link"><i class="fas fa-headset me-2"></i> Bantuan & Dukungan</a></li>
                     </ul>
