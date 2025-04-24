@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\AlamatController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckOutController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\LaporanController;
-use App\Http\Controllers\FrontController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FrontController;
+use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -70,7 +71,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', IsAdmin::class]], fu
     // Route::get('/', function () {
     //     return view('admin.index');
     // });
-    Route::get('/', [DashboardController::class,'dashboardView'])->name('dashboard.dashboardView');
+    Route::get('/', [DashboardController::class, 'dashboardView'])->name('dashboard.dashboardView');
     // untuk Route Backend Lainnya
     Route::resource('user', App\Http\Controllers\UserController::class);
     Route::resource('kategori', App\Http\Controllers\KategoriController::class);
@@ -100,8 +101,6 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     // route checkbox
     Route::post('cart/select', [CartController::class, 'is_select'])->name('cart.select');
 
-
-
     // Route::get('/shop/detail/{id}', [FrontController::class, 'detail'])->name('shop.detail');
 
     Route::get('checkout', [CheckOutController::class, 'index'])->name('checkout.index');
@@ -113,7 +112,10 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::middleware(['auth'])->group(function () {
         Route::get('/riwayat-pesanan', [OrderController::class, 'riwayat'])->name('orders.history');
         Route::get('/pesanan-saya', [OrderController::class, 'pesananSaya'])->name('orders.pesanan');
-    });    
+        Route::get('/alamat', [AlamatController::class, 'index'])->name('alamat.index');
+        Route::post('/alamat', [AlamatController::class, 'store'])->name('alamat.store');
+        Route::delete('/alamat/{id}', [AlamatController::class, 'destroy'])->name('alamat.destroy');;
+    });
 
 });
 // Route::middleware(['auth', 'user-access:user'])->group(function () {

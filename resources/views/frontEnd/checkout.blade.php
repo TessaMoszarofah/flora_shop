@@ -42,6 +42,7 @@
                 });
             });
         });
+
     </script>
 </head>
 <body class="goto-here">
@@ -69,31 +70,39 @@
                         @csrf
                         <h3 class="mb-4 billing-heading" id="data-customer">Billing Details</h3>
                         <div class="row align-items-end">
-                            <div class="w-100"></div>                           
+                            <div class="w-100"></div>
+
                             <div class="col-md-12" id="form-alamat">
+                                <select name="alamat" class="form-select" id="alamatSelect">
+                                    @foreach($alamats as $alamat)
+                                    <option value="{{ $alamat->id }}" data-kota="{{ $alamat->kota }}" data-kodepos="{{ $alamat->kode_pos }}" data-phone="{{ $alamat->no_hp }}" data-alamat="{{$alamat->alamat_lengkap}}" {{$alamat->utama ? 'selected' : '' }}>
+                                        {{ $alamat->nama_penerima }} ({{ $alamat->kota }}, {{ $alamat->provinsi }})
+                                    </option>
+                                    @endforeach
+                                </select>
                                 <div class="form-group">
                                     <label for="streetaddress">Alamat</label>
-                                    <input type="text" name="alamat" class="form-control" placeholder="House number and street name">
+                                    <input type="text" name="alamat" class="form-control" placeholder="House number and street name" readonly>
                                 </div>
                             </div>
                             <div class="w-100"></div>
                             <div class="col-md-6" id="form-kota">
                                 <div class="form-group">
                                     <label for="towncity">Kota</label>
-                                    <input type="text" name="kota" class="form-control" placeholder="">
+                                    <input type="text" name="kota" class="form-control" placeholder="" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6" id="form-kodepos">
                                 <div class="form-group">
                                     <label for="postcodezip">Kode Pos</label>
-                                    <input type="text" name="kode_pos" class="form-control" placeholder="">
+                                    <input type="text" name="kode_pos" class="form-control" placeholder="" readonly>
                                 </div>
                             </div>
                             <div class="w-100"></div>
                             <div class="col-md-6" id="form-numberhp">
                                 <div class="form-group">
                                     <label for="phone">Phone</label>
-                                    <input type="text" name="phone" class="form-control" placeholder="">
+                                    <input type="text" name="phone" class="form-control" placeholder="" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6" id="form-email">
@@ -133,7 +142,7 @@
                                     <span>Discount</span>
                                     <span>$3.00</span>
                                 </p> --}}
-                                   
+
                                     @endforeach
                                     <hr>
                                     <p class="d-flex total-price">
@@ -214,34 +223,35 @@
             <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
 
 
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    const orderButton = document.getElementById('order');
-                    
-                    if (orderButton) {
-                        orderButton.addEventListener('click', function(event) {
-                            event.preventDefault();
-                            Swal.fire({
-                                title: 'Berhasil!',
-                                text: 'Pesanan Anda berhasil dibuat! Terima kasih telah berbelanja di Flora Shop.',
-                                icon: 'success',
-                                confirmButtonText: 'OK'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    const formId = this.dataset.formId;
-                                    const form = document.getElementById(formId);
-                                    if (form) {
-                                        form.submit();
-                                    }
-                                }
-                            });
-                        });
-                    }
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const orderButton = document.getElementById('order');
+
+            if (orderButton) {
+                orderButton.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    Swal.fire({
+                        title: 'Berhasil!'
+                        , text: 'Pesanan Anda berhasil dibuat! Terima kasih telah berbelanja di Flora Shop.'
+                        , icon: 'success'
+                        , confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const formId = this.dataset.formId;
+                            const form = document.getElementById(formId);
+                            if (form) {
+                                form.submit();
+                            }
+                        }
+                    });
                 });
-            </script>
-            
-    
+            }
+        });
+
+    </script>
+
+
     <script src="{{asset('frontAsset/js/jquery.min.js')}}"></script>
     <script src="{{asset('frontAsset/js/jquery-migrate-3.0.1.min.js')}}"></script>
     <script src="{{asset('frontAsset/js/popper.min.js')}}"></script>
@@ -258,6 +268,31 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="{{asset('frontAsset/js/google-map.js')}}"></script>
     <script src="{{asset('frontAsset/js/main.js')}}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const alamatSelect = document.getElementById("alamatSelect");
+            const inputKota = document.querySelector("input[name='kota']");
+            const inputKodePos = document.querySelector("input[name='kode_pos']");
+            const inputPhone = document.querySelector("input[name='phone']");
+            const inputAlamat = document.querySelector("input[name='alamat']");
+
+            function updateFormFields() {
+                const selectedOption = alamatSelect.options[alamatSelect.selectedIndex];
+                inputKota.value = selectedOption.getAttribute("data-kota") || '';
+                inputKodePos.value = selectedOption.getAttribute("data-kodepos") || '';
+                inputPhone.value = selectedOption.getAttribute("data-phone") || '';
+                inputAlamat.value = selectedOption.getAttribute("data-alamat") || '';
+            }
+
+            // Inisialisasi saat halaman dimuat
+            updateFormFields();
+
+            // Update saat pilihan berubah
+            alamatSelect.addEventListener("change", updateFormFields);
+        });
+
+    </script>
+
 
     <script>
         $(document).ready(function() {

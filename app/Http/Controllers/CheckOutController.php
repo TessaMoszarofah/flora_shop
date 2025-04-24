@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Transaksi;
 use App\Models\Produk;
+use App\Models\Alammat;
 use Illuminate\Support\Facades\Auth;
 
 class CheckOutController extends Controller
@@ -22,12 +23,13 @@ class CheckOutController extends Controller
     {
         $total = 0;
         $carts = Cart::with('produk')->where('id_user', Auth::id())->where('is_selected',1)->get();
+        $alamats = auth()->user()->alamats;
         // $carts = Cart::with('produk')->where('id_user', Auth::id())->get();
         foreach ($carts as $cart) {
             $subTotal = $cart->quantity * $cart->produk->harga;
             $total += $subTotal;
         }
-        return view('frontEnd.checkout', compact('carts','total'));
+        return view('frontEnd.checkout', compact('carts','total','alamats'));
     }
 
     /**

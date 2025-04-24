@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -11,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable,HasFactory;
+    use HasApiTokens, Notifiable, HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -41,7 +40,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'password'          => 'hashed',
     ];
     protected function level(): Attribute
     {
@@ -53,5 +52,9 @@ class User extends Authenticatable
     public function order()
     {
         return $this->hasMany(Order::class, 'id_order');
+    }
+    public function alamats()
+    {
+        return $this->hasMany(\App\Models\Alamat::class, 'user_id');
     }
 }

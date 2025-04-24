@@ -21,26 +21,21 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
-        $user = Auth::user();
-
+        // Validasi data input
         $request->validate([
-            'name'       => 'required|string|max:255',
-            'phone'      => 'nullable|string|max:15',
-            'store_name' => 'nullable|string|max:255',
-            'gender'     => 'nullable|in:Laki-laki,Perempuan,Lainnya',
-            'birthdate'  => 'nullable|date',
-            'avatar'     => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
+            'phone'     => 'nullable|string|max:20',
+            'birthdate' => 'nullable|date',
         ]);
 
-        // Jika pengguna mengunggah foto baru
-        if ($request->hasFile('avatar')) {
-            $avatarPath   = $request->file('avatar')->store('avatars', 'public');
-            $user->avatar = $avatarPath;
-        }
+        // Ambil user yang sedang login
+        $user = Auth::user();
 
-        // Simpan perubahan
-        $user->update($request->except('avatar'));
+        // Update data user
+        $user->phone     = $request->phone;
+        $user->birthdate = $request->birthdate;
+        $user->save(); // Simpan perubahan ke database
 
-        return redirect()->route('profile')->with('success', 'Profil berhasil diperbarui.');
+        // Redirect balik dengan pesan sukses
+        return redirect()->back()->with('success', 'Profil berhasil diperbarui!');
     }
 }

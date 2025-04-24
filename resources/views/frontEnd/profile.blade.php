@@ -78,8 +78,8 @@
                     <h2 class="h5 mb-4 fw-bold"><i class="fas fa-user-circle me-2"></i> Akun Saya</h2>
                     <ul class="list-unstyled">
                         <li><a href="#" class="menu-link"><i class="fas fa-user me-2"></i> Profil</a></li>
-                        <li><a href="#" class="menu-link"><i class="fas fa-map-marker-alt me-2"></i> Alamat</a></li>
-                        <li><a href="#" class="menu-link"><i class="fas fa-lock me-2"></i> Ubah Password</a></li>
+                        <li><a href="{{ route('alamat.index') }}" class="menu-link"><i class="fas fa-map-marker-alt me-2"></i> Alamat</a></li>
+                        {{-- <li><a href="#" class="menu-link"><i class="fas fa-lock me-2"></i> Ubah Password</a></li> --}}
                     </ul>
                     <ul class="list-unstyled">
                         <li><a href="{{ route('orders.pesanan') }}" class="menu-link"><i class="fas fa-box me-2"></i> Pesanan Saya</a></li>
