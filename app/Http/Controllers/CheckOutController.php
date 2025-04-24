@@ -1,14 +1,16 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Order;
-use App\Models\Transaksi;
 use App\Models\Produk;
-use App\Models\Alammat;
+use App\Models\Transaksi;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+// Tambahkan Midtrans
+use Midtrans\Config;
+use Midtrans\Snap;
 
 class CheckOutController extends Controller
 {
@@ -16,124 +18,107 @@ class CheckOutController extends Controller
     {
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        $total = 0;
-        $carts = Cart::with('produk')->where('id_user', Auth::id())->where('is_selected',1)->get();
+        $total   = 0;
+        $carts   = Cart::with('produk')->where('id_user', Auth::id())->where('is_selected', 1)->get();
         $alamats = auth()->user()->alamats;
-        // $carts = Cart::with('produk')->where('id_user', Auth::id())->get();
+
         foreach ($carts as $cart) {
             $subTotal = $cart->quantity * $cart->produk->harga;
             $total += $subTotal;
         }
-        return view('frontEnd.checkout', compact('carts','total','alamats'));
+
+        return view('frontEnd.checkout', compact('carts', 'total', 'alamats'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function order(Request $request)
     {
         $request->validate([
-            'alamat' => 'required|string|max:255',
-            'kota' => 'required|string|max:255',
+            'alamat'   => 'required|string|max:255',
+            'kota'     => 'required|string|max:255',
             'kode_pos' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
-            'email' => 'required|string|max:255',
-            // 'payment_method' => 'required|string|max:50',
+            'phone'    => 'required|string|max:255',
+            'email'    => 'required|string|max:255',
         ]);
 
         $total = 0;
-        $carts = Cart::with('produk')->where('id_user', Auth::id())->where('is_selected',1)->get();
+        $carts = Cart::with('produk')->where('id_user', Auth::id())->where('is_selected', 1)->get();
 
         foreach ($carts as $cart) {
             $total += $cart->quantity * $cart->produk->harga;
         }
-        $userId= Auth::id();
-        $produkId= Auth::id();
-        // $order = Order::create([
-        //     'user_id' => $userId,
-        //     'produk_id' => $produkId,
-        //     'alamat' => $request->alamat,
-        //     'kota' => $request->kota,
-        //     'kode_pos' => $request->kode_pos,
-        //     'phone' => $request->phone,
-        //     'email' => $request->email,
-        //     // 'payment_method' => $request->payment_method,
-        //     'total' => $total
-        // ]);
 
-        foreach ($carts as $cart) {
-            $order = Order::create([
-                'user_id' => $userId,
-                'produk_id' =>$cart->id_produk,
-                'alamat' => $request->alamat,
-                'kota' => $request->kota,
-                'kode_pos' => $request->kode_pos,
-                'phone' => $request->phone,
-                'email' => $request->email,
-                // 'payment_method' => $request->payment_method,
-                'total' => $total,
-                'status' => 'Pending'
-            ]);
-            Transaksi::create([
-                'order_id' => $order->id,
-                'produk_id' => $cart->id_produk,
-                'quantity' => $cart->quantity,
-                'price' => $cart->produk->harga * $cart->quantity,
-            ]);
-            $produk = Produk::findOrFail($cart->id_produk);
-            $produk->stok = $cart->produk->stok - $cart->quantity;
-            $produk->save();
-            $cart->delete();
+        // Generate Order ID
+        $orderId = 'ORDER-' . time();
+
+        // Midtrans Config
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$isProduction = config('midtrans.is_production');
+        Config::$isSanitized = config('midtrans.is_sanitized');
+        Config::$is3ds = config('midtrans.is_3ds');
+        
+
+        $params = [
+            'transaction_details' => [
+                'order_id'     => $orderId,
+                'gross_amount' => $total,
+            ],
+            'customer_details'    => [
+                'first_name' => Auth::user()->name,
+                'email'      => $request->email,
+                'phone'      => $request->phone,
+            ],
+        ];
+
+        try {
+            $snapToken = Snap::getSnapToken($params);
+
+            // Simpan Order ke DB (sementara status masih "Pending")
+            foreach ($carts as $cart) {
+                $order = Order::create([
+                    'order_id'  => $orderId,
+                    'user_id'   => Auth::id(),
+                    'produk_id' => $cart->id_produk,
+                    'alamat'    => $request->alamat,
+                    'kota'      => $request->kota,
+                    'kode_pos'  => $request->kode_pos,
+                    'phone'     => $request->phone,
+                    'email'     => $request->email,
+                    'total'     => $total,
+                    'status'    => 'Pending',
+                ]);
+
+                Transaksi::create([
+                    'order_id'  => $order->id,
+                    'produk_id' => $cart->id_produk,
+                    'quantity'  => $cart->quantity,
+                    'price'     => $cart->produk->harga * $cart->quantity,
+                ]);
+
+                // Update stok
+                $produk = Produk::findOrFail($cart->id_produk);
+                $produk->stok -= $cart->quantity;
+                $produk->save();
+
+                $cart->delete();
+            }
+
+            return response()->json(['snap_token' => $snapToken]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
-
-        return redirect()->route('frontEnd.index')->with('success', 'Order berhasil dibuat.');
     }
 
-    
-    
-
-    /**
-     * Display the specified resource.
-     */
+    public function create()
+    {}
     public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
+    {}
     public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
+    {}
     public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
+    {}
     public function destroy(string $id)
-    {
-        //
-    }
+    {}
 }

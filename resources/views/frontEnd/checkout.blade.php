@@ -44,6 +44,55 @@
         });
 
     </script>
+    {{-- Potongan dalam <head> --}}
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const payButton = document.getElementById("midtrans-pay");
+
+            payButton.addEventListener("click", function(e) {
+                e.preventDefault();
+
+                const form = document.getElementById("myForm");
+                const formData = new FormData(form);
+
+                fetch("{{ route('checkout.order') }}", {
+                        method: "POST"
+                        , headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        }
+                        , body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.snap_token) {
+                            snap.pay(data.snap_token, {
+                                onSuccess: function(result) {
+                                    // window.location.href = "/checkout/success"; // sesuaikan
+                                    window.location.href = "/"; // sesuaikan
+                                }
+                                , onPending: function(result) {
+                                    window.location.href = "/checkout"; // opsional
+                                }
+                                , onError: function(result) {
+                                    Swal.fire("Gagal", "Pembayaran gagal. Coba lagi!", "error");
+                                }
+                            });
+                        } else {
+                            Swal.fire("Gagal", "Gagal mendapatkan token Midtrans!", "error");
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        Swal.fire("Gagal", "Terjadi kesalahan saat menghubungi server.", "error");
+                    });
+            });
+        });
+
+    </script>
+
 </head>
 <body class="goto-here">
 
@@ -182,7 +231,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <p><a href="javascript:void(0)" data-form-id="myForm" class="JSV btn btn-primary py-3 px-4" id="order">Place an order</a></p>
+                                    <p><button type="button" id="midtrans-pay" class="btn btn-primary py-3 px-4">Place an Order</button></p>
+                                    {{-- <p><a href="javascript:void(0)" data-form-id="myForm" class="JSV btn btn-primary py-3 px-4" id="order">Place an order</a></p> --}}
                                 </div>
                             </div>
                         </div>
