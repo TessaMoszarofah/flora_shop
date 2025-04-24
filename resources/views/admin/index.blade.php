@@ -59,7 +59,7 @@
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between mb-1">
                     <div class="">
-                        <h5 class="mb-0">42.5K</h5>
+                        <h5 class="mb-0">{{ $formattedActiveUsers }}</h5>
                         <p class="mb-0">Active Users</p>
                     </div>
                     <div class="dropdown">
@@ -77,7 +77,7 @@
                     <div id="chart1"></div>
                 </div>
                 <div class="text-center">
-                    <p class="mb-0 font-12">24K users increased from last month</p>
+                    <p class="mb-0 font-12">{{ $formattedActiveGrowth }} users increased from last month</p>
                 </div>
             </div>
         </div>
@@ -87,7 +87,7 @@
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between mb-3">
                     <div class="">
-                        <h5 class="mb-0">97.4K</h5>
+                        <h5 class="mb-0">{{ $formattedTotalUsers }}</h5>
                         <p class="mb-0">Total Users</p>
                     </div>
                     <div class="dropdown">
@@ -105,12 +105,12 @@
                     <div id="chart2"></div>
                 </div>
                 <div class="text-center">
-                    <p class="mb-0 font-12"><span class="text-success me-1">12.5%</span> from last month</p>
+                    <p class="mb-0 font-12"><span class="text-success me-1">{{ $formattedUserGrowth }}%</span> from last month</p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-xl-6 col-xxl-4 d-flex align-items-stretch">
+    {{-- <div class="col-xl-6 col-xxl-4 d-flex align-items-stretch">
         <div class="card w-100 rounded-4">
             <div class="card-body">
                 <div class="text-center">
@@ -255,8 +255,8 @@
                 <div id="chart7"></div>
             </div>
         </div>
-    </div>
-    <div class="col-xl-6 col-xxl-4 d-flex align-items-stretch">
+    </div> --}}
+    {{-- <div class="col-xl-6 col-xxl-4 d-flex align-items-stretch">
         <div class="card w-100 rounded-4">
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between mb-3">
@@ -536,7 +536,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="col-xl-6 col-xxl-4 d-flex align-items-stretch">
         <div class="card w-100 rounded-4">
             <div class="card-header border-0 p-3 border-bottom">
@@ -559,76 +559,19 @@
             <div class="card-body p-0">
                 <div class="user-list p-3">
                     <div class="d-flex flex-column gap-3">
+                        @foreach($users as $user)    
                         <div class="d-flex align-items-center gap-3">
                             <img src="{{asset('assets/images/profileUser.webp')}}" width="45" height="45" class="rounded-circle" alt="">
                             <div class="flex-grow-1">
-                                <h6 class="mb-0">Elon Jonado</h6>
-                                <p class="mb-0">elon_deo</p>
+                                <h6 class="mb-0">{{ $user->name}}</h6>
+                                <p class="mb-0">{{ $user->email }}</p>
                             </div>
                             <div class="form-check form-check-inline me-0">
                                 <input class="form-check-input ms-0" type="checkbox">
                             </div>
                         </div>
-                        <div class="d-flex align-items-center gap-3">
-                            <img src="{{asset('assets/images/profileUser.webp')}}" width="45" height="45" class="rounded-circle" alt="">
-                            <div class="flex-grow-1">
-                                <h6 class="mb-0">Alexzender Clito</h6>
-                                <p class="mb-0">zli_alexzender</p>
-                            </div>
-                            <div class="form-check form-check-inline me-0">
-                                <input class="form-check-input ms-0" type="checkbox">
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center gap-3">
-                            <img src="{{asset('assets/images/profileUser.webp')}}" width="45" height="45" class="rounded-circle" alt="">
-                            <div class="flex-grow-1">
-                                <h6 class="mb-0">Michle Tinko</h6>
-                                <p class="mb-0">tinko_michle</p>
-                            </div>
-                            <div class="form-check form-check-inline me-0">
-                                <input class="form-check-input ms-0" type="checkbox">
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center gap-3">
-                            <img src="{{asset('assets/images/profileUser.webp')}}" width="45" height="45" class="rounded-circle" alt="">
-                            <div class="flex-grow-1">
-                                <h6 class="mb-0">KailWemba</h6>
-                                <p class="mb-0">wemba_kl</p>
-                            </div>
-                            <div class="form-check form-check-inline me-0">
-                                <input class="form-check-input ms-0" type="checkbox">
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center gap-3">
-                            <img src="{{asset('assets/images/profileUser.webp')}}" width="45" height="45" class="rounded-circle" alt="">
-                            <div class="flex-grow-1">
-                                <h6 class="mb-0">Henhco Tino</h6>
-                                <p class="mb-0">Henhco_tino</p>
-                            </div>
-                            <div class="form-check form-check-inline me-0">
-                                <input class="form-check-input ms-0" type="checkbox">
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center gap-3">
-                            <img src="{{asset('assets/images/profileUser.webp')}}" width="45" height="45" class="rounded-circle" alt="">
-                            <div class="flex-grow-1">
-                                <h6 class="mb-0">Gonjiko Fernando</h6>
-                                <p class="mb-0">gonjiko_fernando</p>
-                            </div>
-                            <div class="form-check form-check-inline me-0">
-                                <input class="form-check-input ms-0" type="checkbox">
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center gap-3">
-                            <img src="{{asset('assets/images/profileUser.webp')}}" width="45" height="45" class="rounded-circle" alt="">
-                            <div class="flex-grow-1">
-                                <h6 class="mb-0">Specer Kilo</h6>
-                                <p class="mb-0">specer_kilo</p>
-                            </div>
-                            <div class="form-check form-check-inline me-0">
-                                <input class="form-check-input ms-0" type="checkbox">
-                            </div>
-                        </div>
+                        @endforeach
+                        
                     </div>
                 </div>
             </div>
@@ -702,4 +645,62 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var options = {
+            chart: {
+                type: 'area',
+                height: 100,
+                sparkline: { enabled: true }
+            },
+            series: [{
+                name: 'New Users',
+                data: @json($userStats)
+            }],
+            colors: ['#00E396'],
+            stroke: { curve: 'smooth' },
+            tooltip: { enabled: false }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart2"), options);
+        chart.render();
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var options = {
+            chart: {
+                height: 150,
+                type: "radialBar",
+            },
+            series: [78], // kamu bisa ganti dengan angka dinamis juga
+            colors: ["#FF4560"],
+            plotOptions: {
+                radialBar: {
+                    hollow: {
+                        size: "70%",
+                    },
+                    dataLabels: {
+                        show: true,
+                        name: {
+                            show: false
+                        },
+                        value: {
+                            fontSize: '24px',
+                            color: '#111',
+                            fontWeight: 600
+                        }
+                    }
+                }
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart1"), options);
+        chart.render();
+    });
+</script>
+
+
 @endsection

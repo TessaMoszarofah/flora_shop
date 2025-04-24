@@ -65,18 +65,17 @@
                 </a>
                 <ul>
                     <li><a href="{{route('laporan.rekap')}}"><i class="material-icons-outlined">arrow_right</i>Rekap Transaksi</a>
-                    <li><a href="#"><i class="material-icons-outlined">arrow_right</i>Laporan Keuangan</a>
                     </li>
                 </ul>
             </li>
 
-            <li>
+            {{-- <li>
                 <a href="#" id="">
                     <div class="parent-icon"><i class="material-icons-outlined">shopping_bag</i>
                     </div>
                     <div class="menu-title">Pesanan</div>
                 </a>
-            </li>
+            </li> --}}
 
 
             
